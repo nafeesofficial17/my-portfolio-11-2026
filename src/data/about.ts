@@ -12,12 +12,20 @@ export const about = {
   facts: [
     { label: "Based in", value: "Ahmedabad, India" },
     { label: "Time zone", value: "IST (UTC+5:30)" },
-    { label: "Experience", value: "4+ years · 3 companies" },
+    { label: "Experience", value: "4+ years · 4 companies" },
     { label: "Focus", value: "AI products & full-stack platforms" },
   ],
 };
 
 export const experience: ExperienceItem[] = [
+  {
+    role: "Software Engineer, Full Stack & AI",
+    company: "Primesource Consulting",
+    period: "Sep 2025 – Present",
+    summary:
+      "Building full-stack platforms with Django, FastAPI and Next.js, including Stripe payments and digital signature workflows, plus agentic AI: RAG pipelines, LLM workflows and Twilio voice bots that handle real calls.",
+    tags: ["Agentic AI", "RAG", "Next.js"],
+  },
   {
     role: "AI/ML Engineer & Sr. Full Stack Engineer",
     company: "NeoSOFT Technologies",

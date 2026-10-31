@@ -34,6 +34,8 @@ export interface Profile {
   whatsapp: string;
   /** Cal.com / Calendly link; the "Book a call" button only shows when this is set. */
   bookingUrl?: string;
+  /** Downloadable CV in public/; the "Download CV" button only shows when this is set. */
+  resumeUrl?: string;
   availability: { open: boolean; label: string };
   headline: HeadlineSegment[];
   intro: string;
@@ -96,6 +98,14 @@ export interface Education {
   school: string;
   period: string;
   note: string;
+}
+
+export interface Certificate {
+  title: string;
+  issuer: string;
+  year: string;
+  image: StaticImageData;
+  verifyUrl?: string;
 }
 
 export interface ProcessStep {

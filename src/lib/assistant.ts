@@ -1,4 +1,5 @@
 import { about, education, experience } from "@/data/about";
+import { certificates } from "@/data/certificates";
 import { processSteps } from "@/data/process";
 import { profile } from "@/data/profile";
 import { archiveProjects, projects } from "@/data/projects";
@@ -21,6 +22,7 @@ function portfolioContext() {
     `Location: ${profile.location} (IST, UTC+5:30), working with clients worldwide`,
     `Availability: ${profile.availability.label}`,
     `Email: ${profile.email}`,
+    ...(profile.resumeUrl ? [`CV (PDF): ${profile.resumeUrl}`] : []),
     `WhatsApp: ${profile.whatsapp}`,
     ...profile.socials.filter((s) => s.platform !== "email").map((s) => `${s.label}: ${s.href}`),
     `Headline: ${profile.headline.map((s) => s.text).join(" ")}`,
@@ -34,6 +36,11 @@ function portfolioContext() {
     ...experience.map((job) => `- ${job.role} at ${job.company} (${job.period}): ${job.summary}`),
     `- Education: ${education.degree}, ${education.school} (${education.period}), ${education.note}`,
   ]);
+
+  section(
+    "Certifications",
+    certificates.map((c) => `- ${c.title}, ${c.issuer} (${c.year})`),
+  );
 
   section(
     "Featured case studies",

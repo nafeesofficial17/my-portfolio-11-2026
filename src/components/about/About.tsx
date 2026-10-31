@@ -1,9 +1,13 @@
+import { Download } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { ScrollRevealText } from "@/components/animations/ScrollRevealText";
+import { Certificates } from "@/components/certificates/Certificates";
 import { ExperienceTimeline } from "@/components/experience/ExperienceTimeline";
 import { Container } from "@/components/ui/Container";
+import { ButtonLink } from "@/components/ui/ButtonLink";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { about, education, experience } from "@/data/about";
+import { certificates } from "@/data/certificates";
 import { profile } from "@/data/profile";
 import { Portrait } from "./Portrait";
 
@@ -46,6 +50,11 @@ export function About() {
                   </div>
                 ))}
               </dl>
+              {profile.resumeUrl && (
+                <ButtonLink href={profile.resumeUrl} download variant="secondary" size="sm" className="mt-6">
+                  <Download className="size-3.5" /> Download CV
+                </ButtonLink>
+              )}
             </FadeIn>
 
             <div id="experience" className="mt-20">
@@ -54,6 +63,14 @@ export function About() {
                 Experience
               </FadeIn>
               <ExperienceTimeline items={experience} education={education} />
+            </div>
+
+            <div id="certifications" className="mt-20">
+              <FadeIn whenInView className="mb-8 flex items-center gap-3 font-mono text-xs tracking-[0.2em] text-subtle uppercase">
+                <span className="h-px w-8 bg-line-strong" />
+                Certifications
+              </FadeIn>
+              <Certificates items={certificates} />
             </div>
           </div>
         </div>

@@ -35,6 +35,7 @@ src/
 │   ├── skills/             # Tech stack marquee
 │   ├── experience/         # Career timeline
 │   ├── testimonials/
+│   ├── certificates/       # Certifications list + lightbox
 │   ├── contact/            # Contact form + CTA
 │   ├── ai-chat/            # "Ask my AI" chat widget
 │   ├── ui/                 # Reusable primitives (button, section heading, badge…)
@@ -45,9 +46,11 @@ src/
 └── types/                  # Shared TypeScript types
 
 public/
-└── images/
-    ├── profile/            # Headshot (optimized WebP)
-    └── projects/           # Project screenshots
+├── images/
+│   ├── profile/            # Headshot (optimized WebP)
+│   ├── projects/           # Project screenshots
+│   └── certificates/       # Certificate scans (WebP)
+└── resume/                 # Downloadable CV (PDF)
 ```
 
 Content lives in `src/data/`, so updating the site means editing data files, not components.

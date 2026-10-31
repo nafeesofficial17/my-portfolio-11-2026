@@ -73,6 +73,7 @@ export interface Project {
 export interface ArchiveProject {
   title: string;
   category: string;
+  kind: "web" | "ai" | "automation";
   stack: string[];
 }
 

@@ -1,4 +1,5 @@
 import type { ArchiveProject, Project } from "@/types";
+import andleapImage from "../../public/images/projects/andleap.webp";
 import anyesignImage from "../../public/images/projects/anyesign.webp";
 import callflowImage from "../../public/images/projects/callflow.webp";
 import convertnicelyImage from "../../public/images/projects/convertnicely.webp";
@@ -188,6 +189,42 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "andleap",
+    title: "&Leap",
+    category: "Mentorship marketplace",
+    tagline: "One-on-one mentorship with global leaders, booked and paid online.",
+    summary:
+      "A knowledge-sharing platform where mentees book paid one-on-one video sessions with mentors worldwide, with scheduling across time zones and a community blog.",
+    role: "Full Stack Developer",
+    team: 7,
+    domain: "andleap.com",
+    image: andleapImage,
+    accent: "#f97316",
+    stack: ["Python", "Django", "REST API", "MySQL", "Stripe", "Zoom API", "AWS S3", "JavaScript"],
+    challenge:
+      "Mentors and mentees live in different countries and time zones. The platform had to make availability, booking, video calls and payments feel like one simple flow, for four different kinds of users.",
+    solution:
+      "I built the Django backend and REST APIs: dynamic slot management from mentor availability, time-zone-aware booking, auto-generated Zoom meetings, Stripe payments released after the session, and separate panels for super admins, community admins, mentors and mentees.",
+    highlights: [
+      {
+        title: "Smart session booking",
+        description: "Slots are generated from each mentor's availability and shown in the mentee's own time zone.",
+      },
+      {
+        title: "Built-in video calls",
+        description: "Every booking creates its own Zoom meeting automatically.",
+      },
+      {
+        title: "Pay after delivery",
+        description: "Stripe payments complete once the session has actually taken place.",
+      },
+      {
+        title: "Four role-based panels",
+        description: "Super admin, community admin, mentor and mentee each get a tailored dashboard.",
+      },
+    ],
+  },
+  {
     slug: "purestora",
     title: "PureStora",
     category: "E-commerce platform",
@@ -227,10 +264,23 @@ export const projects: Project[] = [
 ];
 
 export const archiveProjects: ArchiveProject[] = [
-  { title: "AndLeap", category: "Mentorship platform", stack: ["Django", "Stripe", "Zoom API"] },
-  { title: "VPOS", category: "Point of sale & card payments", stack: ["FastAPI", "React", "WebSockets"] },
-  { title: "Demand Forecasting", category: "Machine learning", stack: ["TensorFlow", "scikit-learn", "Pandas"] },
-  { title: "Object Detection & Counting", category: "Computer vision", stack: ["YOLOv5", "OpenCV", "Django", "React"] },
+  { title: "Raaves", category: "Location-based video reviews", kind: "web", stack: ["Django REST", "MySQL", "AWS S3"] },
+  { title: "Glovendor", category: "Social platform & subscriptions", kind: "web", stack: ["Django", "PayPal", "AWS S3"] },
+  { title: "VPOS", category: "Point of sale & card payments", kind: "web", stack: ["FastAPI", "React", "MSSQL", "WebSockets"] },
+  { title: "E-Commerce", category: "Online store & admin panel", kind: "web", stack: ["Django", "Razorpay", "Celery", "Redis"] },
+  { title: "Cancer Warrior Health", category: "Health & diet planning", kind: "web", stack: ["Django REST", "MySQL", "AWS S3"] },
+  { title: "Demand Forecasting", category: "Sales forecasting", kind: "ai", stack: ["TensorFlow", "scikit-learn", "ARIMA"] },
+  { title: "Object Detection & Counting", category: "Computer vision", kind: "ai", stack: ["YOLOv5", "OpenCV", "Django", "React"] },
+  { title: "Face Mask Detection", category: "Computer vision", kind: "ai", stack: ["VGG16", "Keras", "TensorFlow"] },
+  { title: "Image Classification", category: "Deep learning", kind: "ai", stack: ["CNN", "TensorFlow", "Keras"] },
+  { title: "Customer Churn Prediction", category: "Deep learning", kind: "ai", stack: ["TensorFlow", "Keras", "Pandas"] },
+  { title: "Telegram Chatbot", category: "Conversational AI", kind: "ai", stack: ["Dialogflow", "Flask", "Python"] },
+  { title: "SMS Spam Detection", category: "NLP classification", kind: "ai", stack: ["scikit-learn", "TF-IDF", "XGBoost"] },
+  { title: "Laptop Price Prediction", category: "Regression model", kind: "ai", stack: ["scikit-learn", "XGBoost", "Pandas"] },
+  { title: "Barcode PDF Processing", category: "Document automation", kind: "automation", stack: ["Python", "OpenCV", "OCR"] },
+  { title: "PDF Data Extraction & Upload", category: "Web automation", kind: "automation", stack: ["Python", "Pandas", "Selenium"] },
+  { title: "API to SFTP Data Pipeline", category: "Data pipeline", kind: "automation", stack: ["Python", "Pandas", "Paramiko"] },
+  { title: "Bulk CSV to MSSQL Loader", category: "Data processing", kind: "automation", stack: ["Python", "Pandas", "pyodbc"] },
 ];
 
 export function getProject(slug: string) {

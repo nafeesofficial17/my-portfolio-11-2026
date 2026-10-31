@@ -66,7 +66,7 @@ export function Testimonials() {
             </figure>
           </FadeIn>
           {rest.map((testimonial, i) => (
-            <FadeIn key={testimonial.name} whenInView delay={0.1 + i * 0.1}>
+            <FadeIn key={testimonial.quote} whenInView delay={0.1 + i * 0.1}>
               <figure className="h-full">
                 <TestimonialCard testimonial={testimonial} featured={false} />
               </figure>

@@ -115,6 +115,8 @@ export interface Certificate {
   validUntil?: string;
   /** Short label above a highlighted card's title. */
   label?: string;
+  /** Original certificate file in public/, offered as a download in the lightbox. */
+  pdfUrl?: string;
 }
 
 export interface ProcessStep {

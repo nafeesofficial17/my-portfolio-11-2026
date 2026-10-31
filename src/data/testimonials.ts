@@ -5,7 +5,7 @@ export const testimonials: Testimonial[] = [
   {
     quote:
       "Extremely Professional, Efficient, and Highly Skilled! Delivered top-notch full-stack development with optimized custom code and impressive speed. Quickly understood my requirements, suggested valuable improvements, and maintained excellent communication throughout the project. Handled multiple revisions effortlessly and showcased exceptional skills in every aspect. Delivered on time despite a tight deadline. Highly recommended!",
-    name: "Karnati",
+    name: "Ram Karnati",
     location: "India",
   },
   {

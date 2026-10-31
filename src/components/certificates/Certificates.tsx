@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useLenis } from "lenis/react";
-import { ArrowUpRight, BadgeCheck, Maximize2, X } from "lucide-react";
+import { ArrowUpRight, BadgeCheck, Download, Maximize2, X } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { cn } from "@/lib/utils";
 import type { Certificate } from "@/types";
@@ -114,6 +114,15 @@ export function Certificates({ items }: { items: Certificate[] }) {
                 </span>
               </span>
               <span className="flex shrink-0 items-center gap-2">
+                {active.pdfUrl && (
+                  <a
+                    href={active.pdfUrl}
+                    download
+                    className="inline-flex h-9 items-center gap-1.5 rounded-full border border-line-strong px-4 text-sm text-muted transition-colors duration-300 hover:text-foreground"
+                  >
+                    PDF <Download className="size-3.5" />
+                  </a>
+                )}
                 {active.verifyUrl && (
                   <a
                     href={active.verifyUrl}

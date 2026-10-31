@@ -17,6 +17,7 @@ export const certificates: Certificate[] = [
     credentialId: "193829893",
     validUntil: "Sep 2028",
     label: "GenAI certification",
+    pdfUrl: "/images/certificates/databricks-genai-engineer-associate.pdf",
   },
   {
     title: "AI and ML Applications in Data Science",

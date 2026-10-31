@@ -37,6 +37,8 @@ export interface Profile {
   /** Downloadable CV in public/; the "Download CV" button only shows when this is set. */
   resumeUrl?: string;
   availability: { open: boolean; label: string };
+  /** Optional credential chip shown next to the availability badge in the hero. */
+  highlight?: { label: string; href: string };
   headline: HeadlineSegment[];
   intro: string;
   description: string;
@@ -111,6 +113,8 @@ export interface Certificate {
   badge?: StaticImageData;
   credentialId?: string;
   validUntil?: string;
+  /** Short label above a highlighted card's title. */
+  label?: string;
 }
 
 export interface ProcessStep {

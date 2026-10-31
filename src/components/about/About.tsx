@@ -65,7 +65,7 @@ export function About() {
               <ExperienceTimeline items={experience} education={education} />
             </div>
 
-            <div id="certifications" className="mt-20">
+            <div id="certifications" className="mt-20 scroll-mt-[88px]">
               <FadeIn whenInView className="mb-8 flex items-center gap-3 font-mono text-xs tracking-[0.2em] text-subtle uppercase">
                 <span className="h-px w-8 bg-line-strong" />
                 Certifications

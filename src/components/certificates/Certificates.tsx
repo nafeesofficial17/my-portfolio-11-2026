@@ -65,7 +65,7 @@ export function Certificates({ items }: { items: Certificate[] }) {
                 <span className="relative min-w-0 flex-1">
                   {item.badge && (
                     <span className="mb-2 inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[0.15em] text-accent-2 uppercase">
-                      <BadgeCheck className="size-3.5" aria-hidden /> Professional certification
+                      <BadgeCheck className="size-3.5" aria-hidden /> {item.label ?? "Professional certification"}
                     </span>
                   )}
                   <span className={cn("block leading-snug font-medium text-balance", item.badge ? "text-base sm:text-lg" : "text-sm")}>

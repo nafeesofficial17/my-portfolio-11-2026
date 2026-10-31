@@ -16,6 +16,7 @@ export const certificates: Certificate[] = [
     badge: databricksBadge,
     credentialId: "193829893",
     validUntil: "Sep 2028",
+    label: "GenAI certification",
   },
   {
     title: "AI and ML Applications in Data Science",

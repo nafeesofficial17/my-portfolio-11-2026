@@ -1,4 +1,5 @@
-import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight, BadgeCheck } from "lucide-react";
 import { CountUp } from "@/components/animations/CountUp";
 import { Magnetic } from "@/components/animations/Magnetic";
 import { TextReveal } from "@/components/animations/TextReveal";
@@ -17,6 +18,15 @@ export function Hero() {
       <Container>
         <div className="animate-fade-up flex flex-wrap items-center gap-x-4 gap-y-3" style={{ animationDelay: "0.1s" }}>
           {profile.availability.open && <StatusBadge>{profile.availability.label}</StatusBadge>}
+          {profile.highlight && (
+            <Link
+              href={profile.highlight.href}
+              className="inline-flex items-center gap-2 rounded-full border border-accent-2/30 bg-accent-2/[0.07] py-1.5 pr-4 pl-3 text-sm text-foreground backdrop-blur transition-colors duration-300 hover:border-accent-2/60 hover:bg-accent-2/[0.12]"
+            >
+              <BadgeCheck className="size-4 text-accent-2" aria-hidden />
+              {profile.highlight.label}
+            </Link>
+          )}
           <span className="font-mono text-xs tracking-[0.2em] text-subtle uppercase">{profile.role}</span>
         </div>
 

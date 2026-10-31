@@ -10,6 +10,7 @@ export const profile: Profile = {
   bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL || undefined,
   resumeUrl: "/resume/mohd-nafees-cv.pdf",
   availability: { open: true, label: "Available for new projects" },
+  highlight: { label: "Databricks Certified GenAI Engineer", href: "/#certifications" },
   headline: [
     { text: "I build" },
     { text: "AI-powered products", accent: true },

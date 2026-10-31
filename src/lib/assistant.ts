@@ -51,7 +51,7 @@ function portfolioContext() {
       `### ${p.title} — ${p.category} (case study: /projects/${p.slug})`,
       `Tagline: ${p.tagline}`,
       `Summary: ${p.summary}`,
-      `Role: ${p.role}. Team: ${p.team} people.${p.timeline ? ` Timeline: ${p.timeline}.` : ""}${p.liveUrl ? ` Live: ${p.liveUrl}` : ""}`,
+      `Role: ${p.role}.${p.team ? ` Team: ${p.team} people.` : ""}${p.timeline ? ` Timeline: ${p.timeline}.` : ""}${p.liveUrl ? ` Live: ${p.liveUrl}` : ""}`,
       `Challenge: ${p.challenge}`,
       `What was built: ${p.solution}`,
       `Key features: ${p.highlights.map((h) => `${h.title} (${h.description})`).join("; ")}`,

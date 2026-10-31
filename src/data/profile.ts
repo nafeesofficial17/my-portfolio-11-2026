@@ -10,7 +10,7 @@ export const profile: Profile = {
   bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL || undefined,
   resumeUrl: "/resume/mohd-nafees-cv.pdf",
   availability: { open: true, label: "Available for new projects" },
-  highlight: { label: "Databricks Certified GenAI Engineer", href: "/#certifications" },
+  highlight: { label: "Databricks Certified GenAI Engineer Associate", href: "/#certifications" },
   headline: [
     { text: "I build" },
     { text: "AI-powered products", accent: true },
@@ -19,10 +19,10 @@ export const profile: Profile = {
   intro:
     "4.8+ years shipping Django, FastAPI and Next.js products, from RAG voice agents and legal-tech platforms to a 100+ tool file converter. I help startups and teams turn ideas into products people use.",
   description:
-    "Full stack and AI/ML engineer building scalable web platforms with Python (Django, FastAPI) and Next.js, plus Generative AI, RAG and agentic systems.",
+    "Freelance full-stack & AI/ML engineer with 4.8+ years building Django, FastAPI and Next.js products, RAG chatbots and AI voice agents. Databricks Certified Generative AI Engineer Associate.",
   stats: [
     { value: 4.8, suffix: "+", label: "Years experience" },
-    { value: 9, suffix: "+", label: "Projects delivered" },
+    { value: 9, suffix: "+", label: "Client projects delivered" },
     { value: 100, suffix: "+", label: "Conversion tools built" },
   ],
   socials: [

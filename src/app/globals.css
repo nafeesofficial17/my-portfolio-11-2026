@@ -147,6 +147,11 @@
     outline-offset: 3px;
   }
 
+  /* Sections focused by in-page links only take focus so the next Tab starts there; no ring needed. */
+  [tabindex="-1"]:focus {
+    outline: none;
+  }
+
   /* Keep anchor targets clear of the floating navbar. */
   section[id] {
     scroll-margin-top: 88px;

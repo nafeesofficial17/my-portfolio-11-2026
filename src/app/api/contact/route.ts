@@ -20,6 +20,10 @@ export async function POST(request: Request) {
     return Response.json({ error: "Too many messages in a short time. Please try again later." }, { status: 429 });
   }
 
+  // The form's longest field is a few thousand characters; refuse anything far bigger before parsing it.
+  if (Number(request.headers.get("content-length") ?? 0) > 32_000) {
+    return Response.json({ error: "Invalid request." }, { status: 413 });
+  }
   let body: unknown;
   try {
     body = await request.json();

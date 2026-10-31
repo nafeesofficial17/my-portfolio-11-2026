@@ -19,7 +19,7 @@ const suggestions = [
   "What AI products has Mohd built?",
   "Can he build a chatbot for my business?",
   "What's his tech stack?",
-  "How does working with him work?",
+  "What's it like to work with him?",
 ];
 
 /** Open the chat from anywhere, optionally with a question to ask straight away. */
@@ -35,14 +35,25 @@ export function ChatWidget() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const launcherRef = useRef<HTMLButtonElement>(null);
+  // Whatever had focus when the chat opened gets it back when the chat closes.
+  const returnFocusRef = useRef<HTMLElement | null>(null);
 
   const ask = useCallback(
     async (question: string) => {
       const text = question.trim().slice(0, CHAT_LIMITS.maxMessageLength);
       if (!text || streaming) return;
 
-      // Send only real exchanges (no error notices), trimmed to the server's limit, starting with the visitor.
-      const history = messages.filter((m) => !m.error);
+      // Send only complete exchanges: a question whose answer failed or came back empty is dropped with it,
+      // so the server always sees alternating turns.
+      const history: ChatMessage[] = [];
+      for (let i = 0; i + 1 < messages.length; i += 2) {
+        const [question, answer] = [messages[i], messages[i + 1]];
+        if (question.role === "user" && answer.role === "assistant" && !answer.error && answer.content) {
+          history.push(question, answer);
+        }
+      }
       let outgoing = [...history, { role: "user" as const, content: text }].slice(-CHAT_LIMITS.maxMessages);
       if (outgoing[0]?.role === "assistant") outgoing = outgoing.slice(1);
 
@@ -104,6 +115,7 @@ export function ChatWidget() {
   // Other parts of the page can open the chat (and pre-ask a question) via openChat().
   useEffect(() => {
     const onOpen = (event: Event) => {
+      if (document.activeElement instanceof HTMLElement) returnFocusRef.current = document.activeElement;
       setOpen(true);
       const question = (event as CustomEvent<string | undefined>).detail;
       if (question) void ask(question);
@@ -113,12 +125,38 @@ export function ChatWidget() {
   }, [ask]);
 
   useEffect(() => {
-    if (!open) return;
-    inputRef.current?.focus();
-    const onKey = (event: KeyboardEvent) => event.key === "Escape" && setOpen(false);
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    if (open) {
+      inputRef.current?.focus();
+      return;
+    }
+    const target = returnFocusRef.current;
+    returnFocusRef.current = null;
+    if (target) (target.isConnected ? target : launcherRef.current)?.focus();
   }, [open]);
+
+  const openPanel = () => {
+    returnFocusRef.current = launcherRef.current;
+    setOpen(true);
+  };
+
+  // Escape closes the panel and Tab cycles inside it, so keyboard focus can't wander behind it.
+  const onPanelKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Escape") {
+      event.stopPropagation();
+      setOpen(false);
+      return;
+    }
+    if (event.key !== "Tab" || !panelRef.current) return;
+    const focusable = [...panelRef.current.querySelectorAll<HTMLElement>("button:not(:disabled), textarea, a[href]")];
+    const [first, last] = [focusable[0], focusable[focusable.length - 1]];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last?.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first?.focus();
+    }
+  };
 
   // Keep the newest text in view while an answer streams in.
   useEffect(() => {
@@ -135,8 +173,9 @@ export function ChatWidget() {
       <AnimatePresence>
         {!open && (
           <motion.button
+            ref={launcherRef}
             type="button"
-            onClick={() => setOpen(true)}
+            onClick={openPanel}
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
@@ -155,8 +194,11 @@ export function ChatWidget() {
       <AnimatePresence>
         {open && (
           <motion.div
+            ref={panelRef}
             role="dialog"
+            aria-modal="true"
             aria-label={`Chat with ${profile.name}'s AI assistant`}
+            onKeyDown={onPanelKeyDown}
             data-lenis-prevent
             initial={{ opacity: 0, y: 24, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -209,7 +251,7 @@ export function ChatWidget() {
                   </div>
                 </div>
               ) : (
-                <div aria-live="polite" className="space-y-4">
+                <div aria-live="polite" aria-busy={streaming} className="space-y-4">
                   {messages.map((message, i) =>
                     message.role === "user" ? (
                       <p

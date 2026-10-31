@@ -195,7 +195,7 @@ export const projects: Project[] = [
     tagline: "One-on-one mentorship with global leaders, booked and paid online.",
     summary:
       "A knowledge-sharing platform where mentees book paid one-on-one video sessions with mentors worldwide, with scheduling across time zones and a community blog.",
-    role: "Full Stack Developer",
+    role: "Full Stack Engineer",
     team: 7,
     domain: "andleap.com",
     image: andleapImage,
@@ -231,7 +231,7 @@ export const projects: Project[] = [
     tagline: "An online store for natural, handcrafted products.",
     summary:
       "A complete e-commerce platform with real-time cart, OTP login, location-based taxes, coupons, Razorpay payments and automatic PDF invoices.",
-    role: "Full Stack Developer",
+    role: "Full Stack Engineer",
     team: 2,
     liveUrl: "https://www.purestora.com",
     domain: "purestora.com",
@@ -241,7 +241,7 @@ export const projects: Project[] = [
     challenge:
       "The business needed a store it could run itself: promotions, taxes that change by location, and secure, low-friction checkout for first-time buyers.",
     solution:
-      "I built it end to end in Django and MySQL, with Celery and Redis for background jobs, with an AJAX cart that updates instantly, OTP login, multi-level location handling for tax rules, a coupon engine, Razorpay checkout, editable email templates and PDF invoices.",
+      "I built it end to end in Django and MySQL, with Celery and Redis for background jobs, and added an AJAX cart that updates instantly, OTP login, multi-level location handling for tax rules, a coupon engine, Razorpay checkout, editable email templates and PDF invoices.",
     highlights: [
       {
         title: "Instant cart",
@@ -264,11 +264,11 @@ export const projects: Project[] = [
 ];
 
 export const archiveProjects: ArchiveProject[] = [
-  { title: "Raaves", category: "Location-based video reviews", kind: "web", stack: ["Django REST", "MySQL", "AWS S3"] },
+  { title: "Raaves", category: "Location-based video reviews", kind: "web", stack: ["DRF", "MySQL", "AWS S3"] },
   { title: "Glovendor", category: "Social platform & subscriptions", kind: "web", stack: ["Django", "PayPal", "AWS S3"] },
   { title: "VPOS", category: "Point of sale & card payments", kind: "web", stack: ["FastAPI", "React", "MSSQL", "WebSockets"] },
   { title: "E-Commerce", category: "Online store & admin panel", kind: "web", stack: ["Django", "Razorpay", "Celery", "Redis"] },
-  { title: "Cancer Warrior Health", category: "Health & diet planning", kind: "web", stack: ["Django REST", "MySQL", "AWS S3"] },
+  { title: "Cancer Warrior Health", category: "Health & diet planning", kind: "web", stack: ["DRF", "MySQL", "AWS S3"] },
   { title: "Demand Forecasting", category: "Sales forecasting", kind: "ai", stack: ["TensorFlow", "scikit-learn", "ARIMA"] },
   { title: "Object Detection & Counting", category: "Computer vision", kind: "ai", stack: ["YOLOv5", "OpenCV", "Django", "React"] },
   { title: "Face Mask Detection", category: "Computer vision", kind: "ai", stack: ["VGG16", "Keras", "TensorFlow"] },

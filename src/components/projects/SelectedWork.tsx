@@ -13,7 +13,7 @@ export function SelectedWork() {
           index="01"
           eyebrow="Selected work"
           title={[{ text: "Real products," }, { text: "shipped", accent: true }, { text: "for real clients." }]}
-          description="From AI voice agents to e-signature SaaS, a few of the platforms I've designed, built and taken live."
+          description="From AI voice agents to e-signature SaaS, a few of the platforms I've built and helped take live."
         />
 
         <StackedCards>

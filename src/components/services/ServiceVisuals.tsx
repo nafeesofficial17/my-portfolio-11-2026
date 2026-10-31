@@ -8,7 +8,7 @@ import type { ServiceVisual } from "@/types";
 
 /* Small, self-contained illustrations for the services bento. All decorative. */
 
-const answer = "Yes, you can move it up to 24 hours before. Want me to book Thursday at 3 PM instead?";
+const answer = "Yes, you can move it up to 24 hours in advance. Want me to book Thursday at 3 PM instead?";
 
 function ChatVisual() {
   const ref = useRef<HTMLDivElement>(null);

@@ -4,7 +4,7 @@ import portrait from "../../public/images/profile/mohd-nafees.webp";
 export const about = {
   portrait,
   statement:
-    "I'm a full stack and AI engineer from Ahmedabad, India. For close to five years I've helped startups and teams ship products end to end: Python backends that scale, fast Next.js interfaces, and AI that's actually useful, from RAG assistants to voice agents that pick up the phone.",
+    "I'm a full-stack and AI/ML engineer from Ahmedabad, India. For close to five years I've helped startups and teams ship products end to end: Python backends that scale, fast Next.js interfaces, and AI that's actually useful, from RAG assistants to voice agents that pick up the phone.",
   paragraphs: [
     "I've built for clients in India, the UK and the US, across legal tech, e-commerce, SaaS tools, mentorship platforms and data science. I like owning the whole problem, from the first conversation and the data model to the deploy and what happens after it.",
     "Clients tend to mention the same things: clear communication, clean code and on-time delivery. That's the bar I hold myself to on every project.",
@@ -64,5 +64,5 @@ export const education: Education = {
   degree: "Integrated Master of Computer Applications (IMCA)",
   school: "Indus University, Ahmedabad",
   period: "2017 – 2022",
-  note: "8.2 CGPA",
+  note: "CGPA 8.2/10",
 };

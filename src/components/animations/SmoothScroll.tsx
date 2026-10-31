@@ -20,12 +20,18 @@ function AnchorScroll() {
       if (!link?.hash || link.target === "_blank") return;
       const url = new URL(link.href);
       if (url.origin !== location.origin || url.pathname !== location.pathname) return;
-      const target = url.hash === "#home" ? 0 : document.querySelector(url.hash);
-      if (target === null) return;
+      const id = decodeURIComponent(url.hash.slice(1));
+      const target = document.getElementById(id);
+      if (!target) return;
 
       event.preventDefault();
       if (lenis.isStopped) lenis.start();
-      lenis.scrollTo(target as HTMLElement | number);
+      lenis.scrollTo(id === "home" ? 0 : target);
+      // Do what a native anchor jump would: update the URL and move keyboard focus to the target,
+      // so the skip link works and the next Tab continues from there.
+      if (location.hash !== url.hash) history.pushState(null, "", url.hash);
+      if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll: true });
     };
     document.addEventListener("click", onClick, { capture: true });
     return () => document.removeEventListener("click", onClick, { capture: true });

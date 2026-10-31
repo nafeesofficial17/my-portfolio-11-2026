@@ -3,7 +3,7 @@ import { profile } from "@/data/profile";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${profile.name} — Full Stack & AI Engineer`,
+    name: `${profile.name} — Full-Stack & AI/ML Engineer`,
     short_name: profile.name,
     description: profile.description,
     start_url: "/",

@@ -20,6 +20,8 @@ export function Navbar() {
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  // Keyboard users tabbing into the header must be able to see it, even after scrolling down.
+  const [focusWithin, setFocusWithin] = useState(false);
   const active = useActiveSection(sectionIds);
   const lenis = useLenis();
   const { scrollY } = useScroll();
@@ -35,12 +37,16 @@ export function Navbar() {
   useEffect(() => {
     if (!menuOpen) return;
     lenis?.stop();
+    // Everything behind the full-screen menu is out of reach for Tab and screen readers until it closes.
+    const background = [...document.querySelectorAll<HTMLElement>("body > :not(header, #mobile-menu, [inert])")];
+    for (const el of background) el.inert = true;
     const desktop = window.matchMedia("(min-width: 768px)");
     const close = () => setMenuOpen(false);
     const onKey = (event: KeyboardEvent) => event.key === "Escape" && close();
     window.addEventListener("keydown", onKey);
     desktop.addEventListener("change", close);
     return () => {
+      for (const el of background) el.inert = false;
       lenis?.start();
       window.removeEventListener("keydown", onKey);
       desktop.removeEventListener("change", close);
@@ -51,7 +57,11 @@ export function Navbar() {
     <>
       <motion.header
         initial={{ y: "-130%" }}
-        animate={{ y: hidden && !menuOpen ? "-130%" : "0%" }}
+        animate={{ y: hidden && !menuOpen && !focusWithin ? "-130%" : "0%" }}
+        onFocus={() => setFocusWithin(true)}
+        onBlur={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget)) setFocusWithin(false);
+        }}
         transition={{ duration: 0.6, ease: easeOutExpo }}
         className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4"
       >

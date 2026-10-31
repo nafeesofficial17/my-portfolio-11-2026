@@ -13,6 +13,8 @@ import { isRateLimited } from "@/lib/rate-limit";
  */
 
 const MODEL = process.env.CHAT_MODEL || "claude-opus-5-5";
+// 12 messages of 1,500 characters each fit well under this; anything bigger isn't from the widget.
+const MAX_BODY_BYTES = 64_000;
 
 let client: Anthropic | undefined;
 function getClient() {
@@ -49,6 +51,9 @@ export async function POST(request: Request) {
     );
   }
 
+  if (Number(request.headers.get("content-length") ?? 0) > MAX_BODY_BYTES) {
+    return Response.json({ error: "Invalid request." }, { status: 413 });
+  }
   let body: unknown;
   try {
     body = await request.json();
@@ -86,7 +91,10 @@ export async function POST(request: Request) {
         );
 
         for await (const event of answer) {
-          if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
+          // A fallback block means the model declined mid-answer and a fallback model starts over after it.
+          if (event.type === "content_block_start" && event.content_block.type === "fallback") {
+            send({ type: "reset" });
+          } else if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
             send({ type: "text", text: event.delta.text });
           }
         }

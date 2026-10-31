@@ -27,7 +27,7 @@ const instrumentSerif = Instrument_Serif({
   style: "italic",
 });
 
-const title = `${profile.name} — Full Stack & AI Engineer`;
+const title = `${profile.name} — Full-Stack & AI/ML Engineer`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -45,6 +45,10 @@ export const metadata: Metadata = {
     "FastAPI developer",
     "Next.js developer",
     "freelance software engineer India",
+    "freelance AI engineer",
+    "Databricks certified Generative AI engineer",
+    "LLM developer",
+    "Python developer",
   ],
   alternates: { canonical: "/" },
   openGraph: {

@@ -32,11 +32,15 @@ export function StackedCard({ index, total, children }: { index: number; total: 
   const dim = useTransform(progress, isLast ? [0, 1] : [(index + 0.4) / steps, (index + 1) / steps], [0, isLast ? 0 : 0.55]);
 
   return (
-    // Bottom padding grows with the card's downward offset so the last card can't spill into what follows.
-    <div className="sticky top-0 flex min-h-svh items-start pt-20 sm:pt-28" style={{ paddingBottom: 32 + index * 22 }}>
+    // Each card sits a step lower than the one before (a smaller step on phones, where cards are tall).
+    // Bottom padding grows with that offset so the last card can't spill into what follows.
+    <div
+      className="sticky top-0 flex min-h-svh items-start pt-20 [--stack-step:12px] sm:pt-28 sm:[--stack-step:22px]"
+      style={{ paddingBottom: `calc(2rem + var(--stack-step) * ${index})` }}
+    >
       <motion.div
         className="relative w-full origin-top will-change-transform"
-        style={{ scale, top: `${index * 22}px` }}
+        style={{ scale, top: `calc(var(--stack-step) * ${index})` }}
       >
         {children}
         <motion.div

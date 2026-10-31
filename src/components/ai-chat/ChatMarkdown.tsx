@@ -20,7 +20,7 @@ function renderInline(text: string, onNavigate?: () => void) {
           {bold}
         </strong>,
       );
-    } else if (href.startsWith("/")) {
+    } else if (/^\/(?![/\\])/.test(href)) {
       parts.push(
         <Link
           key={match.index}

@@ -1,10 +1,101 @@
 import type { ArchiveProject, Project } from "@/types";
-import andleapImage from "../../public/images/projects/andleap.webp";
 import anyesignImage from "../../public/images/projects/anyesign.webp";
 import callflowImage from "../../public/images/projects/callflow.webp";
+import convertnicelyImage from "../../public/images/projects/convertnicely.webp";
+import gamerStatsImage from "../../public/images/projects/gamer-stats.webp";
 import purestoraImage from "../../public/images/projects/purestora.webp";
 
 export const projects: Project[] = [
+  {
+    slug: "gamer-stats",
+    title: "Gamer Stats",
+    category: "Legal-tech verification platform",
+    tagline: "Verified gaming history for law firms, across every major platform.",
+    summary:
+      "A legal-tech platform that helps law firms verify claimants' gaming history. It collects playtime from Xbox, PlayStation, Steam, Epic, Fortnite and Roblox and shows who qualifies.",
+    role: "Full Stack Engineer",
+    timeline: "2026 – ongoing",
+    liveUrl: "https://gamer-stats.com",
+    domain: "gamer-stats.com",
+    image: gamerStatsImage,
+    accent: "#0ea5e9",
+    stack: ["Python", "Django", "DRF", "Celery", "Redis", "PostgreSQL", "Firebase", "Docker", "AWS"],
+    challenge:
+      "Law firms needed proof of how much time claimants had actually spent gaming. That data is spread across six different platforms, each with its own accounts and formats, and checking it by hand doesn't scale to large numbers of claimants.",
+    solution:
+      "A Django and Django REST Framework backend collects playtime from each platform, with Celery and Redis running the collection in the background. Firms get one secure workspace with live search, qualification results, reports, activity logs and real-time notifications, deployed with Docker on AWS.",
+    highlights: [
+      {
+        title: "Six platforms, one view",
+        description: "Playtime from Xbox, PlayStation, Steam, Epic, Fortnite and Roblox is gathered into a single profile per claimant.",
+      },
+      {
+        title: "Who qualifies",
+        description: "Firms see at a glance which claimants meet the criteria, instead of checking each account by hand.",
+      },
+      {
+        title: "Live search & reports",
+        description: "Find any claimant instantly and export the reports a case needs.",
+      },
+      {
+        title: "Activity logs",
+        description: "Every action is recorded, so firms can trace exactly who did what and when.",
+      },
+      {
+        title: "Real-time notifications",
+        description: "Teams are told the moment new results come in.",
+      },
+      {
+        title: "Background processing",
+        description: "Celery and Redis handle data collection in the background, so the app stays fast while large batches run.",
+      },
+    ],
+  },
+  {
+    slug: "convertnicely",
+    title: "ConvertNicely",
+    category: "SaaS · online file converter",
+    tagline: "100+ free file conversions, with no sign-up and nothing kept.",
+    summary:
+      "A privacy-focused online file converter with 100+ tools for images, PDFs, documents, audio, video and web pages. No sign-up is needed, and files are deleted automatically after conversion.",
+    role: "Creator · Full Stack Engineer",
+    timeline: "2026",
+    liveUrl: "https://convertnicely.com",
+    domain: "convertnicely.com",
+    image: convertnicelyImage,
+    accent: "#2563eb",
+    stack: ["Next.js", "TypeScript", "FastAPI", "Celery", "Redis", "PostgreSQL", "FFmpeg", "LibreOffice", "Docker"],
+    challenge:
+      "Most online converters ask for an account, add watermarks or keep your files. The goal was one fast, free place to convert almost any everyday file, where uploads never stick around.",
+    solution:
+      "I designed and built it end to end: a Next.js and TypeScript frontend, a FastAPI backend with Celery and Redis queuing every conversion, FFmpeg for audio and video, LibreOffice for documents, and automatic clean-up that deletes files after processing. It all runs in Docker.",
+    highlights: [
+      {
+        title: "100+ tools",
+        description: "Converters for images, PDFs, documents, audio, video and web pages, all handled the same simple way.",
+      },
+      {
+        title: "No sign-up",
+        description: "Drop a file in and convert it. There's no account and no watermark.",
+      },
+      {
+        title: "Private by default",
+        description: "Uploads are deleted after conversion, and results are removed automatically soon after.",
+      },
+      {
+        title: "Queued processing",
+        description: "Celery and Redis run conversions in the background, so big files don't slow anyone else down.",
+      },
+      {
+        title: "Media & documents",
+        description: "FFmpeg handles audio and video, and LibreOffice handles Word, Excel and PowerPoint files.",
+      },
+      {
+        title: "Smart format picker",
+        description: "Drop any file and the site shows which formats it can become.",
+      },
+    ],
+  },
   {
     slug: "callflow-agent",
     title: "CallFlow Agent",
@@ -97,42 +188,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "andleap",
-    title: "&Leap",
-    category: "Mentorship marketplace",
-    tagline: "One-on-one mentorship with global leaders, booked and paid online.",
-    summary:
-      "A knowledge-sharing platform where mentees book paid one-on-one video sessions with mentors worldwide, with scheduling across time zones and a community blog.",
-    role: "Full Stack Developer",
-    team: 7,
-    domain: "andleap.com",
-    image: andleapImage,
-    accent: "#f97316",
-    stack: ["Python", "Django", "REST API", "MySQL", "Stripe", "Zoom API", "AWS S3", "JavaScript"],
-    challenge:
-      "Mentors and mentees live in different countries and time zones. The platform had to make availability, booking, video calls and payments feel like one simple flow, for four different kinds of users.",
-    solution:
-      "I built the Django backend and REST APIs: dynamic slot management from mentor availability, time-zone-aware booking, auto-generated Zoom meetings, Stripe payments released after the session, and separate panels for super admins, community admins, mentors and mentees.",
-    highlights: [
-      {
-        title: "Smart session booking",
-        description: "Slots are generated from each mentor's availability and shown in the mentee's own time zone.",
-      },
-      {
-        title: "Built-in video calls",
-        description: "Every booking creates its own Zoom meeting automatically.",
-      },
-      {
-        title: "Pay after delivery",
-        description: "Stripe payments complete once the session has actually taken place.",
-      },
-      {
-        title: "Four role-based panels",
-        description: "Super admin, community admin, mentor and mentee each get a tailored dashboard.",
-      },
-    ],
-  },
-  {
     slug: "purestora",
     title: "PureStora",
     category: "E-commerce platform",
@@ -145,11 +200,11 @@ export const projects: Project[] = [
     domain: "purestora.com",
     image: purestoraImage,
     accent: "#d97706",
-    stack: ["Python", "Django", "PostgreSQL", "Razorpay", "JavaScript", "AJAX"],
+    stack: ["Python", "Django", "MySQL", "Celery", "Redis", "Razorpay", "JavaScript", "AJAX"],
     challenge:
       "The business needed a store it could run itself: promotions, taxes that change by location, and secure, low-friction checkout for first-time buyers.",
     solution:
-      "I built it end to end in Django and PostgreSQL, with an AJAX cart that updates instantly, OTP login, multi-level location handling for tax rules, a coupon engine, Razorpay checkout, editable email templates and PDF invoices.",
+      "I built it end to end in Django and MySQL, with Celery and Redis for background jobs, with an AJAX cart that updates instantly, OTP login, multi-level location handling for tax rules, a coupon engine, Razorpay checkout, editable email templates and PDF invoices.",
     highlights: [
       {
         title: "Instant cart",
@@ -172,12 +227,10 @@ export const projects: Project[] = [
 ];
 
 export const archiveProjects: ArchiveProject[] = [
-  { title: "VPOS", category: "POS & card payments", stack: ["FastAPI", "React", "MSSQL", "WebSockets"] },
-  { title: "Glovendor", category: "Social platform", stack: ["Django", "PayPal", "AWS S3"] },
-  { title: "Raaves", category: "Location-based reviews", stack: ["Django REST", "MySQL", "AWS S3"] },
-  { title: "Cancer Warrior Health", category: "Health planning", stack: ["Django REST", "MySQL"] },
+  { title: "AndLeap", category: "Mentorship platform", stack: ["Django", "Stripe", "Zoom API"] },
+  { title: "VPOS", category: "Point of sale & card payments", stack: ["FastAPI", "React", "WebSockets"] },
   { title: "Demand Forecasting", category: "Machine learning", stack: ["TensorFlow", "scikit-learn", "Pandas"] },
-  { title: "Face Mask Detection", category: "Computer vision", stack: ["VGG16", "Keras", "TensorFlow"] },
+  { title: "Object Detection & Counting", category: "Computer vision", stack: ["YOLOv5", "OpenCV", "Django", "React"] },
 ];
 
 export function getProject(slug: string) {

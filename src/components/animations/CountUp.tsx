@@ -27,12 +27,13 @@ export function CountUp({
       el.textContent = `${value}${suffix}`;
       return;
     }
+    const decimals = Number.isInteger(value) ? 0 : 1;
     const controls = animate(0, value, {
       duration,
       delay,
       ease: easeOutExpo,
       onUpdate: (latest) => {
-        el.textContent = `${Math.round(latest)}${suffix}`;
+        el.textContent = `${latest.toFixed(decimals)}${suffix}`;
       },
     });
     return () => controls.stop();

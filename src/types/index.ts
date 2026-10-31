@@ -57,7 +57,7 @@ export interface Project {
   summary: string;
   role: string;
   timeline?: string;
-  team: number;
+  team?: number;
   liveUrl?: string;
   /** Domain shown in the browser frame's address bar. */
   domain: string;

@@ -12,6 +12,9 @@ import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Tag } from "@/components/ui/Tag";
 import { getProject, projects } from "@/data/projects";
 
+// Every case study is prerendered in full from its slug, so there is no param-free shell to show first.
+export const instant = false;
+
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
 }
@@ -39,7 +42,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
   const facts = [
     { label: "Role", value: project.role },
     project.timeline && { label: "Timeline", value: project.timeline },
-    { label: "Team", value: `${project.team} people` },
+    project.team && { label: "Team", value: `${project.team} people` },
     { label: "Category", value: project.category },
   ].filter(Boolean) as { label: string; value: string }[];
 
@@ -98,6 +101,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
                 rel="noopener noreferrer"
                 variant="secondary"
                 size="sm"
+                className="shrink-0 self-start whitespace-nowrap lg:self-auto"
               >
                 Visit live site
                 <ArrowUpRight className="size-4" />

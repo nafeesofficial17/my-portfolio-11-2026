@@ -1,26 +1,208 @@
 @import "tailwindcss";
 
+/* Design tokens. Dark is the only theme for now; a light theme only needs to redefine these. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #050507;
+  --surface: #0b0b0f;
+  --surface-raised: #121218;
+  --foreground: #f4f4f6;
+  --muted: #9a9ca8;
+  --subtle: #787a85;
+  --line: rgb(255 255 255 / 0.08);
+  --line-strong: rgb(255 255 255 / 0.16);
+  --accent: #8b7cff;
+  --accent-2: #38d7f2;
+  --success: #34d399;
+  color-scheme: dark;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-success: var(--success);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  --animate-aurora: aurora 18s ease-in-out infinite alternate;
+  --animate-scroll-line: scroll-line 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  /* CSS-only entrances for above-the-fold content: they start at first paint, before JavaScript loads. */
+  --animate-fade-up: fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-word-up: word-up 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-marquee: marquee var(--marquee-duration, 30s) linear infinite;
+  --animate-wave: wave 1.2s ease-in-out infinite;
+  --animate-dash: dash 1.6s linear infinite;
+  --animate-shimmer: shimmer 2.4s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+      filter: blur(6px);
+    }
+  }
+
+  @keyframes word-up {
+    from {
+      transform: translateY(110%);
+    }
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes wave {
+    0%,
+    100% {
+      transform: scaleY(0.25);
+    }
+    50% {
+      transform: scaleY(1);
+    }
+  }
+
+  @keyframes dash {
+    to {
+      stroke-dashoffset: -24;
+    }
+  }
+
+  @keyframes shimmer {
+    0%,
+    100% {
+      opacity: 0.45;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes aurora {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(8%, -6%, 0) scale(1.12);
+    }
+    100% {
+      transform: translate3d(-6%, 8%, 0) scale(0.94);
+    }
+  }
+
+  @keyframes scroll-line {
+    0% {
+      transform: scaleY(0);
+      transform-origin: top;
+    }
+    45% {
+      transform: scaleY(1);
+      transform-origin: top;
+    }
+    55% {
+      transform: scaleY(1);
+      transform-origin: bottom;
+    }
+    100% {
+      transform: scaleY(0);
+      transform-origin: bottom;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    background: var(--background);
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--accent) 45%, transparent);
+    color: var(--foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* Keep anchor targets clear of the floating navbar. */
+  section[id] {
+    scroll-margin-top: 88px;
+  }
+}
+
+/*
+ * Cursor-following glow for cards. The element sets --spot-x / --spot-y on pointer move
+ * (see SpotlightCard); these layers fade in on hover.
+ */
+@utility spotlight-fill {
+  background: radial-gradient(420px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgb(139 124 255 / 0.1), transparent 65%);
+}
+
+@utility spotlight-border {
+  padding: 1px;
+  background: radial-gradient(320px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgb(139 124 255 / 0.7), transparent 65%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* Fades the edges of a horizontally scrolling strip. */
+@utility mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+}
+
+/* Foreground → accent gradient for highlighted words. */
+@utility text-gradient {
+  background-image: linear-gradient(100deg, var(--foreground) 0%, var(--accent) 50%, var(--accent-2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Hairline grid; override --grid-color to tint it. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-color, var(--line)) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-color, var(--line)) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Film grain that keeps large gradients from banding. */
+@utility bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

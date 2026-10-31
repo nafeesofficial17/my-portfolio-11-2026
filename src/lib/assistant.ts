@@ -39,7 +39,10 @@ function portfolioContext() {
 
   section(
     "Certifications",
-    certificates.map((c) => `- ${c.title}, ${c.issuer} (${c.year})`),
+    certificates.map(
+      (c) =>
+        `- ${c.title}, ${c.issuer} (${c.year}${c.validUntil ? `, valid until ${c.validUntil}` : ""}${c.credentialId ? `, credential ID ${c.credentialId}` : ""})`,
+    ),
   );
 
   section(

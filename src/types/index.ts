@@ -107,6 +107,10 @@ export interface Certificate {
   year: string;
   image: StaticImageData;
   verifyUrl?: string;
+  /** Issuer badge; certificates with one are shown as a larger, highlighted card. */
+  badge?: StaticImageData;
+  credentialId?: string;
+  validUntil?: string;
 }
 
 export interface ProcessStep {

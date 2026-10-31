@@ -4,6 +4,7 @@ import "lenis/dist/lenis.css";
 import "./globals.css";
 import { ChatWidget } from "@/components/ai-chat/ChatWidget";
 import { Cursor } from "@/components/animations/Cursor";
+import { ScrollProgress } from "@/components/animations/ScrollProgress";
 import { SmoothScroll } from "@/components/animations/SmoothScroll";
 import { Footer } from "@/components/footer/Footer";
 import { Navbar } from "@/components/navbar/Navbar";
@@ -79,6 +80,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <SmoothScroll>
+          <ScrollProgress />
           <Navbar />
           {children}
           <Footer />

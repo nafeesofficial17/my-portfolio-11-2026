@@ -12,7 +12,7 @@ import { HeroBackground } from "./HeroBackground";
 
 export function Hero() {
   return (
-    <section id="home" className="relative isolate flex min-h-svh items-center overflow-hidden pt-32 pb-24">
+    <section id="home" className="relative isolate flex min-h-svh items-center overflow-hidden pt-24 pb-24 sm:pt-32">
       <HeroBackground />
 
       <Container>
@@ -34,15 +34,15 @@ export function Hero() {
           as="h1"
           segments={profile.headline}
           delay={0.25}
-          className="mt-8 max-w-5xl text-[clamp(2.6rem,7vw,6rem)] leading-[1] font-semibold tracking-[-0.04em] text-balance"
+          className="mt-6 max-w-5xl text-[clamp(2.6rem,7vw,6rem)] sm:mt-8 leading-[1] font-semibold tracking-[-0.04em] text-balance"
           accentClassName="text-gradient pr-[0.06em] font-serif text-[1.08em] font-normal tracking-[-0.02em] italic"
         />
 
         <div className="animate-fade-up" style={{ animationDelay: "0.85s" }}>
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-pretty text-muted">{profile.intro}</p>
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-pretty text-muted sm:mt-8 sm:text-lg">{profile.intro}</p>
         </div>
 
-        <div className="animate-fade-up mt-10 flex flex-wrap items-center gap-4" style={{ animationDelay: "1s" }}>
+        <div className="animate-fade-up mt-8 flex flex-wrap items-center gap-4 sm:mt-10" style={{ animationDelay: "1s" }}>
           <Magnetic>
             <ButtonLink href="/#contact">
               Start a project

@@ -180,13 +180,14 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ duration: 0.5, ease: easeOutExpo, delay: 0.1 }}
-            className="group fixed right-4 bottom-4 z-30 flex items-center gap-2.5 rounded-full border border-white/15 bg-surface-raised/90 py-2 pr-5 pl-2 text-sm font-medium shadow-[0_20px_50px_-12px_rgb(0_0_0/0.8),0_0_40px_-10px_rgb(139_124_255/0.6)] backdrop-blur-xl transition-colors hover:border-white/30 sm:right-6 sm:bottom-6"
+            className="group fixed right-4 bottom-4 z-30 flex items-center gap-2.5 rounded-full border border-white/15 bg-surface-raised/90 py-2 pr-5 pl-2 text-sm font-medium shadow-[0_20px_50px_-12px_rgb(0_0_0/0.8),0_0_40px_-10px_rgb(139_124_255/0.6)] backdrop-blur-xl transition-colors hover:border-white/30 max-sm:p-1.5 sm:right-6 sm:bottom-6"
           >
             <span className="relative grid size-9 place-items-center rounded-full bg-linear-to-br from-accent to-accent-2 text-background">
               <span className="absolute inset-0 animate-ping rounded-full bg-accent/40 [animation-duration:2.5s]" />
               <Sparkles className="relative size-4" />
             </span>
-            Ask my AI
+            {/* Icon-only on phones, where a wide pill would cover too much of the page. */}
+            <span className="max-sm:sr-only">Ask my AI</span>
           </motion.button>
         )}
       </AnimatePresence>

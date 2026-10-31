@@ -3,10 +3,12 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-/** Returns the id of whichever section currently crosses the middle of the viewport. */
+/**
+ * Returns the id of whichever section currently crosses the middle of the viewport, or null when
+ * that section isn't one of `ids` (so the nav doesn't keep highlighting a section you've left).
+ */
 export function useActiveSection(ids: string[]) {
   const [active, setActive] = useState<{ pathname: string; id: string } | null>(null);
-  const key = ids.join(",");
   // The navbar outlives page changes, so re-observe when the page (and its sections) change.
   const pathname = usePathname();
 
@@ -19,13 +21,11 @@ export function useActiveSection(ids: string[]) {
       },
       { rootMargin: "-45% 0px -50% 0px" },
     );
-    for (const id of key.split(",")) {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    }
+    for (const section of document.querySelectorAll("main section[id]")) observer.observe(section);
     return () => observer.disconnect();
-  }, [key, pathname]);
+  }, [pathname]);
 
   // A section seen on another page doesn't count here.
-  return active?.pathname === pathname ? active.id : null;
+  if (active?.pathname !== pathname) return null;
+  return ids.includes(active.id) ? active.id : null;
 }

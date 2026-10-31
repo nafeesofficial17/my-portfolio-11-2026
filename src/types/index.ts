@@ -1,6 +1,6 @@
 import type { StaticImageData } from "next/image";
 
-export type SocialPlatform = "github" | "linkedin" | "email" | "whatsapp";
+export type SocialPlatform = "github" | "linkedin" | "email" | "whatsapp" | "phone";
 
 export interface SocialLink {
   platform: SocialPlatform;
@@ -32,6 +32,8 @@ export interface Profile {
   location: string;
   email: string;
   whatsapp: string;
+  /** Display form of the phone number; the same number takes WhatsApp messages. */
+  phone: string;
   /** Cal.com / Calendly link; the "Book a call" button only shows when this is set. */
   bookingUrl?: string;
   /** Downloadable CV in public/; the "Download CV" button only shows when this is set. */

@@ -20,6 +20,7 @@ const jsonLd = {
   url: siteUrl,
   image: `${siteUrl}/images/profile/mohd-nafees.webp`,
   email: `mailto:${profile.email}`,
+  telephone: profile.phone.replace(/\s/g, ""),
   address: { "@type": "PostalAddress", addressLocality: "Ahmedabad", addressCountry: "IN" },
   alumniOf: { "@type": "CollegeOrUniversity", name: "Indus University" },
   knowsAbout: [

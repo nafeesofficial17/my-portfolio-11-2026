@@ -23,6 +23,7 @@ function portfolioContext() {
     `Availability: ${profile.availability.label}`,
     `Email: ${profile.email}`,
     ...(profile.resumeUrl ? [`CV (PDF): ${profile.resumeUrl}`] : []),
+    `Phone (calls and WhatsApp): ${profile.phone}`,
     `WhatsApp: ${profile.whatsapp}`,
     ...profile.socials.filter((s) => s.platform !== "email").map((s) => `${s.label}: ${s.href}`),
     `Headline: ${profile.headline.map((s) => s.text).join(" ")}`,

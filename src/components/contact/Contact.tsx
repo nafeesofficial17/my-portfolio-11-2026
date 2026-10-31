@@ -12,6 +12,7 @@ import { ContactForm } from "./ContactForm";
 import { CopyEmail } from "./CopyEmail";
 
 const channels: SocialLink[] = [
+  { platform: "phone", label: profile.phone, href: `tel:${profile.phone.replace(/\s/g, "")}` },
   { platform: "whatsapp", label: "WhatsApp", href: profile.whatsapp },
   ...profile.socials.filter((social) => social.platform === "linkedin" || social.platform === "github"),
 ];
@@ -53,13 +54,13 @@ export function Contact() {
             )}
 
             <div>
-              <p className="mb-3 font-mono text-[11px] tracking-[0.2em] text-subtle uppercase">Or find me on</p>
+              <p className="mb-3 font-mono text-[11px] tracking-[0.2em] text-subtle uppercase">Or reach me on</p>
               <ul className="flex flex-wrap gap-2">
                 {channels.map((channel) => (
                   <li key={channel.platform}>
                     <a
                       href={channel.href}
-                      target="_blank"
+                      target={channel.href.startsWith("http") ? "_blank" : undefined}
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm text-muted transition-colors hover:border-line-strong hover:text-foreground"
                     >

@@ -6,7 +6,11 @@ import { navItems } from "@/data/navigation";
 import { profile } from "@/data/profile";
 import { CurrentYear, LocalTime } from "./LocalTime";
 
-const connect = [...profile.socials, { platform: "whatsapp" as const, label: "WhatsApp", href: profile.whatsapp }];
+const connect = [
+  ...profile.socials,
+  { platform: "whatsapp" as const, label: "WhatsApp", href: profile.whatsapp },
+  { platform: "phone" as const, label: "Call", href: `tel:${profile.phone.replace(/\s/g, "")}` },
+];
 
 export function Footer() {
   return (
@@ -50,7 +54,7 @@ export function Footer() {
               <li key={social.platform}>
                 <a
                   href={social.href}
-                  target={social.platform === "email" ? undefined : "_blank"}
+                  target={social.href.startsWith("http") ? "_blank" : undefined}
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2.5 text-muted transition-colors hover:text-foreground"
                 >

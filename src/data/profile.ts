@@ -7,6 +7,7 @@ export const profile: Profile = {
   location: "Ahmedabad, India",
   email: "nafeesofficial17@gmail.com",
   whatsapp: "https://wa.me/917490078839",
+  phone: "+91 74900 78839",
   bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL || undefined,
   resumeUrl: "/resume/mohd-nafees-cv.pdf",
   availability: { open: true, label: "Available for new projects" },

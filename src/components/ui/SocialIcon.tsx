@@ -1,4 +1,4 @@
-import { Mail } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { siWhatsapp } from "simple-icons";
 import type { SocialPlatform } from "@/types";
 
@@ -38,5 +38,7 @@ export function SocialIcon({ platform, className }: { platform: SocialPlatform; 
       return <Mail {...props} />;
     case "whatsapp":
       return <WhatsAppIcon {...props} />;
+    case "phone":
+      return <Phone {...props} />;
   }
 }

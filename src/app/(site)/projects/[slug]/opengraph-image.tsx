@@ -1,6 +1,6 @@
-import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
+import sharp from "sharp";
 import { getProject, projects } from "@/data/projects";
 import { OgFrame, ogFonts, ogSize } from "@/lib/og";
 
@@ -12,10 +12,10 @@ export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
 }
 
-// Satori can't decode WebP, so screenshots are embedded from PNG copies kept next to the source images.
-async function screenshot(slug: string) {
-  const data = await readFile(join(process.cwd(), "src/assets/og", `${slug}.png`), "base64");
-  return `data:image/png;base64,${data}`;
+// Satori can't decode WebP, so the screenshot is converted to PNG when the image is generated.
+async function screenshot(src: string) {
+  const data = await sharp(join(process.cwd(), "public", src)).resize({ width: 1040 }).png().toBuffer();
+  return `data:image/png;base64,${data.toString("base64")}`;
 }
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
@@ -31,7 +31,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           <span style={{ fontSize: 26, color: "#c9cad1", lineHeight: 1.35 }}>{project.tagline}</span>
         </div>
         <img
-          src={await screenshot(project.slug)}
+          src={await screenshot(project.image.src)}
           alt=""
           width={520}
           height={325}

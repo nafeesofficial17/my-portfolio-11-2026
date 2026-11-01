@@ -1,0 +1,37 @@
+{
+  "portrait": {
+    "src": "/images/profile/mohd-nafees.webp",
+    "width": 1000,
+    "height": 922,
+    "blurDataURL": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4WAoAAAAQAAAABwAABgAAQUxQSDkAAAAAAABM7LgAAAAAAGj/9gIAAAAAef/2FgAAAAAf/cUAAAAQd93//9aCBLT///////+E////////8v0AVlA4IFIAAACwAQCdASoIAAcAAkA4JQBOgBtkE1+AAP5NsfRiX/8olKo+mZPzzud75Q+Djx9BKqm9bZ5WhNj61NXRI3Ml/fPAlP9RoiLuCgsQd+W8SXmT4AAA"
+  },
+  "statement": "I'm a full-stack and AI/ML engineer from Ahmedabad, India. For close to five years I've helped startups and teams ship products end to end: Python backends that scale, fast Next.js interfaces, and AI that's actually useful, from RAG assistants to voice agents that pick up the phone.",
+  "paragraphs": [
+    "I've built for clients in India, the UK and the US, across legal tech, e-commerce, SaaS tools, mentorship platforms and data science. I like owning the whole problem, from the first conversation and the data model to the deploy and what happens after it.",
+    "Clients tend to mention the same things: clear communication, clean code and on-time delivery. That's the bar I hold myself to on every project."
+  ],
+  "facts": [
+    {
+      "label": "Based in",
+      "value": "Ahmedabad, India"
+    },
+    {
+      "label": "Time zone",
+      "value": "IST (UTC+5:30)"
+    },
+    {
+      "label": "Experience",
+      "value": "4.8+ years · 4 companies"
+    },
+    {
+      "label": "Focus",
+      "value": "AI products & full-stack platforms"
+    }
+  ],
+  "education": {
+    "degree": "Integrated Master of Computer Applications (IMCA)",
+    "school": "Indus University, Ahmedabad",
+    "period": "2017 – 2022",
+    "note": "CGPA 8.2/10"
+  }
+}

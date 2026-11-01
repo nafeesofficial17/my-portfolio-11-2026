@@ -1,0 +1,80 @@
+[
+  {
+    "title": "Databricks Certified Generative AI Engineer Associate",
+    "issuer": "Databricks",
+    "year": "2026",
+    "image": {
+      "src": "/images/certificates/databricks-genai-engineer.webp",
+      "width": 1400,
+      "height": 1081,
+      "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAABQAgCdASoIAAYAAkA4JZwCdH8GJ/geiJHRTgAA/vtLmVA9GYu2ZJ8rzoBlZHnavHJ89eSBxQEIyhbsFFBq8AAA"
+    },
+    "badge": {
+      "src": "/images/certificates/databricks-genai-badge.webp",
+      "width": 273,
+      "height": 366,
+      "blurDataURL": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4WAoAAAAQAAAABQAABwAAQUxQSDEAAAABb6CokRQ2eAVk8Gq2iIjA8Rk6dqUNg5CkzJu8RiyJBBJFAFmEcDoxRPQ/egLuX9IlAFZQOCBMAAAAsAEAnQEqBgAIAAJAOCUAToAh3xm7oAD+hBj/nj1OhuQdfztQ42oDXV+Mm/cUr3eDOO8qVh3GjNuUyEwUqBCHmR11mb2/YTWZCQAAAA=="
+    },
+    "credentialId": "193829893",
+    "validUntil": "Sep 2028",
+    "label": "GenAI certification",
+    "pdfUrl": "/images/certificates/databricks-genai-engineer-associate.pdf"
+  },
+  {
+    "title": "AI and ML Applications in Data Science",
+    "issuer": "Indus University · GUJCOST STTP",
+    "year": "2021",
+    "image": {
+      "src": "/images/certificates/sttp-ai-ml.webp",
+      "width": 1400,
+      "height": 788,
+      "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoIAAUAAkA4JZwAAvdogTQAAP78kbYwOdx5meST6XwWmYYxoStgAA=="
+    }
+  },
+  {
+    "title": "Building Web Applications in PHP",
+    "issuer": "University of Michigan · Coursera",
+    "year": "2020",
+    "image": {
+      "src": "/images/certificates/coursera-php.webp",
+      "width": 1400,
+      "height": 1082,
+      "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoIAAYAAkA4JaQAAxecte0AAP79OW2H0oPr61tw4fyAAA=="
+    },
+    "verifyUrl": "https://coursera.org/verify/G8CANBYXMXQS"
+  },
+  {
+    "title": "DevOps Workshop",
+    "issuer": "Agile Group of Companies",
+    "year": "2021",
+    "image": {
+      "src": "/images/certificates/devops-workshop.webp",
+      "width": 1245,
+      "height": 885,
+      "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoIAAYAAkA4JZwAAup3mGwAAP78mxa+rUvSNk/Paep9aMF2eoS8AAAA"
+    }
+  },
+  {
+    "title": "Android App with Python",
+    "issuer": "Great Learning Academy",
+    "year": "2021",
+    "image": {
+      "src": "/images/certificates/gla-android-python.webp",
+      "width": 1400,
+      "height": 989,
+      "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoIAAYAAkA4JYwAAuXdsrcAAP79hEXJkR457h1Uvzv5JDbW0t2u5C5vGAA="
+    },
+    "verifyUrl": "https://verify.mygreatlearning.com/SOOTCYHM"
+  },
+  {
+    "title": "Python Programming",
+    "issuer": "Great Learning Academy",
+    "year": "2020",
+    "image": {
+      "src": "/images/certificates/gla-python.webp",
+      "width": 1400,
+      "height": 989,
+      "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADQAQCdASoIAAYAAkA4JYwAAxeWimh1gAD+/YQ8qFa3w5+N2b6QbKvGlH45W54NQAA="
+    }
+  }
+]

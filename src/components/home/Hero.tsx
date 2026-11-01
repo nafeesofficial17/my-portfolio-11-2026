@@ -34,7 +34,7 @@ export function Hero() {
           as="h1"
           segments={profile.headline}
           delay={0.25}
-          className="mt-6 max-w-5xl text-[clamp(2.6rem,7vw,6rem)] sm:mt-8 leading-[1] font-semibold tracking-[-0.04em] text-balance"
+          className="mt-6 max-w-5xl text-[clamp(2.6rem,7vw,6rem)] leading-[1] font-semibold tracking-[-0.04em] text-balance sm:mt-8"
           accentClassName="text-gradient pr-[0.06em] font-serif text-[1.08em] font-normal tracking-[-0.02em] italic"
         />
 
@@ -54,7 +54,9 @@ export function Hero() {
           </ButtonLink>
         </div>
 
-        <div className="animate-fade-up mt-16 flex flex-col gap-8 border-t border-line pt-8 sm:flex-row sm:items-end sm:justify-between" style={{ animationDelay: "1.15s" }}
+        <div
+          className="animate-fade-up mt-16 flex flex-col gap-8 border-t border-line pt-8 sm:flex-row sm:items-end sm:justify-between"
+          style={{ animationDelay: "1.15s" }}
         >
           <dl className="grid grid-cols-3 gap-6 sm:gap-14">
             {profile.stats.map((stat, i) => (

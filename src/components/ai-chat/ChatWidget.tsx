@@ -22,6 +22,8 @@ const suggestions = [
   "What's it like to work with him?",
 ];
 
+const genericError = `Something went wrong. Please email ${profile.email}.`;
+
 /** Open the chat from anywhere, optionally with a question to ask straight away. */
 export function openChat(question?: string) {
   window.dispatchEvent(new CustomEvent("open-ai-chat", { detail: question }));
@@ -95,12 +97,11 @@ export function ChatWidget() {
               update(() => ({ role: "assistant", content: event.message ?? "", error: true }));
           }
         }
+        // A stream that ends without any text or error event would otherwise leave an empty bubble.
+        update((last) => (last.content || last.error ? last : { ...last, content: genericError, error: true }));
       } catch (error) {
         if (controller.signal.aborted) return;
-        const message =
-          error instanceof Error && error.message
-            ? error.message
-            : `Something went wrong. Please email ${profile.email}.`;
+        const message = error instanceof Error && error.message ? error.message : genericError;
         update(() => ({ role: "assistant", content: message, error: true }));
       } finally {
         if (abortRef.current === controller) {

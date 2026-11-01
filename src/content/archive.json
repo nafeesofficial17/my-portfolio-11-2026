@@ -1,0 +1,124 @@
+[
+  {
+    "title": "Raaves",
+    "category": "Location-based video reviews",
+    "kind": "web",
+    "stack": [
+      "DRF",
+      "MySQL",
+      "AWS S3"
+    ]
+  },
+  {
+    "title": "Glovendor",
+    "category": "Social platform & subscriptions",
+    "kind": "web",
+    "stack": [
+      "Django",
+      "PayPal",
+      "AWS S3"
+    ]
+  },
+  {
+    "title": "VPOS",
+    "category": "Point of sale & card payments",
+    "kind": "web",
+    "stack": [
+      "FastAPI",
+      "React",
+      "MSSQL",
+      "WebSockets"
+    ]
+  },
+  {
+    "title": "Cancer Warrior Health",
+    "category": "Health & diet planning",
+    "kind": "web",
+    "stack": [
+      "DRF",
+      "MySQL",
+      "AWS S3"
+    ]
+  },
+  {
+    "title": "Demand Forecasting",
+    "category": "Sales forecasting",
+    "kind": "ai",
+    "stack": [
+      "TensorFlow",
+      "scikit-learn",
+      "ARIMA"
+    ]
+  },
+  {
+    "title": "Object Detection & Counting",
+    "category": "Computer vision",
+    "kind": "ai",
+    "stack": [
+      "YOLOv5",
+      "OpenCV",
+      "Django",
+      "React"
+    ]
+  },
+  {
+    "title": "Customer Churn Prediction",
+    "category": "Customer retention model",
+    "kind": "ai",
+    "stack": [
+      "TensorFlow",
+      "Keras",
+      "Pandas"
+    ]
+  },
+  {
+    "title": "Telegram Chatbot",
+    "category": "Conversational AI",
+    "kind": "ai",
+    "stack": [
+      "Dialogflow",
+      "Flask",
+      "Python"
+    ]
+  },
+  {
+    "title": "Barcode PDF Processing",
+    "category": "Document automation",
+    "kind": "automation",
+    "stack": [
+      "Python",
+      "OpenCV",
+      "OCR"
+    ]
+  },
+  {
+    "title": "PDF Data Extraction & Upload",
+    "category": "Web automation",
+    "kind": "automation",
+    "stack": [
+      "Python",
+      "Pandas",
+      "Selenium"
+    ]
+  },
+  {
+    "title": "API to SFTP Data Pipeline",
+    "category": "Data pipeline",
+    "kind": "automation",
+    "stack": [
+      "Python",
+      "Pandas",
+      "Paramiko"
+    ]
+  },
+  {
+    "title": "Bulk CSV to MSSQL Loader",
+    "category": "Data processing",
+    "kind": "automation",
+    "stack": [
+      "Python",
+      "Pandas",
+      "pyodbc"
+    ]
+  }
+]

@@ -6,6 +6,7 @@ import { SelectedWork } from "@/components/projects/SelectedWork";
 import { Services } from "@/components/services/Services";
 import { TechMarquee } from "@/components/skills/TechMarquee";
 import { Testimonials } from "@/components/testimonials/Testimonials";
+import { about } from "@/data/about";
 import { certificates } from "@/data/certificates";
 import { profile } from "@/data/profile";
 import { siteUrl } from "@/lib/site";
@@ -18,7 +19,7 @@ const jsonLd = {
   jobTitle: profile.role,
   description: profile.description,
   url: siteUrl,
-  image: `${siteUrl}/images/profile/mohd-nafees.webp`,
+  image: `${siteUrl}${about.portrait.src}`,
   email: `mailto:${profile.email}`,
   telephone: profile.phone.replace(/\s/g, ""),
   address: { "@type": "PostalAddress", addressLocality: "Ahmedabad", addressCountry: "IN" },

@@ -96,12 +96,14 @@ export function ContactForm() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
+    const focusFirstError = (found: ContactErrors) =>
+      form.querySelector<HTMLElement>(`[name="${Object.keys(found)[0]}"]`)?.focus();
     const input = parseContact(Object.fromEntries(new FormData(form)));
     const found = validateContact(input);
     setErrors(found);
     setServerError("");
     if (Object.keys(found).length > 0) {
-      form.querySelector<HTMLElement>(`[name="${Object.keys(found)[0]}"]`)?.focus();
+      focusFirstError(found);
       return;
     }
 
@@ -120,7 +122,10 @@ export function ContactForm() {
         setBudget("");
         return;
       }
-      if (result.errors) setErrors(result.errors);
+      if (result.errors) {
+        setErrors(result.errors);
+        focusFirstError(result.errors);
+      }
       setServerError(result.error ?? "");
       setStatus("error");
     } catch {

@@ -105,6 +105,19 @@ export interface Education {
   note: string;
 }
 
+export interface Fact {
+  label: string;
+  value: string;
+}
+
+export interface About {
+  portrait: StaticImageData;
+  statement: string;
+  paragraphs: string[];
+  facts: Fact[];
+  education: Education;
+}
+
 export interface Certificate {
   title: string;
   issuer: string;

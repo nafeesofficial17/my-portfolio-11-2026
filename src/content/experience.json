@@ -1,0 +1,57 @@
+[
+  {
+    "role": "Full-Stack & AI/ML Engineer",
+    "company": "Freelance",
+    "period": "Jun 2026 – Present",
+    "summary": "Launched ConvertNicely, an online file converter with 100+ tools, and building Gamer Stats, a legal-tech platform for verifying gaming playtime. I own the full client cycle: requirements, architecture, development and deployment.",
+    "tags": [
+      "Next.js",
+      "FastAPI",
+      "Django"
+    ]
+  },
+  {
+    "role": "Software Engineer",
+    "company": "Primesource Consulting",
+    "period": "Sep 2025 – May 2026",
+    "summary": "Built agentic AI systems, including LLM workflows, RAG pipelines and AI voice bots with Twilio, and delivered full-stack apps in Django, FastAPI and Next.js with payments and e-signatures. Managed databases, deployments and client communication end to end.",
+    "tags": [
+      "Agentic AI",
+      "RAG",
+      "Next.js"
+    ]
+  },
+  {
+    "role": "Software Engineer",
+    "company": "NeoSOFT Technologies",
+    "period": "Jul 2024 – Sep 2025",
+    "summary": "Built ML models for sales forecasting and real-time object detection, served them through Django, FastAPI and Flask APIs with React dashboards, and automated the pipelines for data ingestion, feature engineering and retraining.",
+    "tags": [
+      "TensorFlow",
+      "FastAPI",
+      "React"
+    ]
+  },
+  {
+    "role": "Software Engineer",
+    "company": "Savitriya Technologies",
+    "period": "Sep 2023 – Jul 2024",
+    "summary": "Built FastAPI + React applications, API integrations and Python automation, managed cloud servers from deployment to security, and led the team through task planning, code reviews, mentoring and weekly client reports.",
+    "tags": [
+      "FastAPI",
+      "React",
+      "Team lead"
+    ]
+  },
+  {
+    "role": "Software Engineer (Full Stack)",
+    "company": "Hyperlink Infosystem",
+    "period": "Jan 2022 – Aug 2023",
+    "summary": "Built scalable web apps and REST APIs with Django and Django REST Framework, handled database design, cloud deployment and server maintenance, and worked with clients on requirements and progress updates.",
+    "tags": [
+      "Django",
+      "REST APIs",
+      "Deployment"
+    ]
+  }
+]

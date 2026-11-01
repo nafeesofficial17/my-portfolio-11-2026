@@ -1,61 +1,12 @@
-import {
-  siCelery,
-  siDjango,
-  siDocker,
-  siFastapi,
-  siFirebase,
-  siFlask,
-  siGit,
-  siJavascript,
-  siKeras,
-  siLangchain,
-  siMongodb,
-  siMysql,
-  siNextdotjs,
-  siNginx,
-  siNumpy,
-  siOpencv,
-  siPandas,
-  siPostgresql,
-  siPython,
-  siRabbitmq,
-  siRazorpay,
-  siReact,
-  siRedis,
-  siScikitlearn,
-  siStripe,
-  siTensorflow,
-  siTypescript,
-  type SimpleIcon,
-} from "simple-icons";
+import * as icons from "simple-icons";
+import type { SimpleIcon } from "simple-icons";
+import slugs from "@/content/skills.json";
+
+const bySlug = new Map(
+  Object.values(icons as Record<string, unknown>)
+    .filter((icon): icon is SimpleIcon => typeof icon === "object" && icon !== null && "slug" in icon)
+    .map((icon) => [icon.slug, icon]),
+);
 
 /** Logos for the tech marquee, in display order. Brand marks come from Simple Icons (CC0). */
-export const techStack: SimpleIcon[] = [
-  siPython,
-  siDjango,
-  siFastapi,
-  siFlask,
-  siNextdotjs,
-  siReact,
-  siJavascript,
-  siTypescript,
-  siPostgresql,
-  siMysql,
-  siMongodb,
-  siRedis,
-  siCelery,
-  siRabbitmq,
-  siDocker,
-  siNginx,
-  siLangchain,
-  siTensorflow,
-  siKeras,
-  siScikitlearn,
-  siOpencv,
-  siPandas,
-  siNumpy,
-  siStripe,
-  siRazorpay,
-  siFirebase,
-  siGit,
-];
+export const techStack: SimpleIcon[] = slugs.flatMap((slug) => bySlug.get(slug) ?? []);

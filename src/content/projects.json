@@ -1,7 +1,7 @@
 [
   {
-    "slug": "gamer-stats",
     "title": "Gamer Stats",
+    "slug": "gamer-stats",
     "category": "Legal-tech verification platform",
     "tagline": "Verified gaming history for law firms, across every major platform.",
     "summary": "A legal-tech platform that helps law firms verify claimants' gaming history. It collects playtime from Xbox, PlayStation, Steam, Epic, Fortnite and Roblox and shows who qualifies.",
@@ -10,10 +10,10 @@
     "liveUrl": "https://gamer-stats.com",
     "domain": "gamer-stats.com",
     "image": {
-      "src": "/images/projects/gamer-stats.webp",
+      "src": "/images/projects/screenshot-2026-11-03-151709-fb4e45fc.webp",
       "width": 1600,
-      "height": 1000,
-      "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoIAAUAAkA4JYgCdAD5WS6gAAD+82dL9r0qlgukv54XgeJq+/Nas8nkLDUuwTX3SwwtKlHxGGt5YLu2TN6AAA=="
+      "height": 865,
+      "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADQAQCdASoIAAQAAsBMJZQCdAEO+nG8AAD+68eQw9tr4kTUsuevjgAA"
     },
     "accent": "#0ea5e9",
     "stack": [
@@ -57,8 +57,8 @@
     ]
   },
   {
-    "slug": "convertnicely",
     "title": "ConvertNicely",
+    "slug": "convertnicely",
     "category": "SaaS · online file converter",
     "tagline": "100+ free file conversions, with no sign-up and nothing kept.",
     "summary": "A privacy-focused online file converter with 100+ tools for images, PDFs, documents, audio, video and web pages. No sign-up is needed, and files are deleted automatically after conversion.",
@@ -114,8 +114,8 @@
     ]
   },
   {
-    "slug": "callflow-agent",
     "title": "CallFlow Agent",
+    "slug": "callflow-agent",
     "category": "AI voice & chat automation",
     "tagline": "AI agents that answer calls and chats for law firms, 24/7.",
     "summary": "A multi-tenant platform where every law firm gets its own AI agent that talks to clients by phone and chat, answering from the firm's own documents.",
@@ -174,8 +174,8 @@
     ]
   },
   {
-    "slug": "anyesign",
     "title": "anyEsign",
+    "slug": "anyesign",
     "category": "E-signature & payments SaaS",
     "tagline": "Legally compliant document signing with payments built in.",
     "summary": "A document signing platform for law firms and their clients: upload, send, sign and get paid in one flow, with a complete audit trail for compliance.",
@@ -233,8 +233,8 @@
     ]
   },
   {
-    "slug": "andleap",
     "title": "&Leap",
+    "slug": "andleap",
     "category": "Mentorship marketplace",
     "tagline": "One-on-one mentorship with global leaders, booked and paid online.",
     "summary": "A knowledge-sharing platform where mentees book paid one-on-one video sessions with mentors worldwide, with scheduling across time zones and a community blog.",
@@ -280,8 +280,8 @@
     ]
   },
   {
-    "slug": "purestora",
     "title": "PureStora",
+    "slug": "purestora",
     "category": "E-commerce platform",
     "tagline": "An online store for natural, handcrafted products.",
     "summary": "A complete e-commerce platform with real-time cart, OTP login, location-based taxes, coupons, Razorpay payments and automatic PDF invoices.",

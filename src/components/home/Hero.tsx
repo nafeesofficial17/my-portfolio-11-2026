@@ -36,8 +36,8 @@ export function Hero() {
           as="h1"
           segments={profile.headline}
           delay={0.25}
-          className="mt-6 max-w-5xl text-[clamp(2.6rem,7vw,6rem)] leading-[1] font-semibold tracking-[-0.04em] text-balance sm:mt-8"
-          accentClassName="text-gradient pr-[0.06em] font-serif text-[1.08em] font-normal tracking-[-0.02em] italic"
+          className="mt-6 max-w-5xl text-[clamp(2.6rem,7vw,6rem)] leading-[1] font-semibold tracking-[-0.04em] text-pretty sm:mt-8"
+          accentClassName="text-gradient-flow pr-[0.06em] font-serif text-[1.08em] font-normal tracking-[-0.02em] italic"
         />
 
         <div className="animate-fade-up" style={{ animationDelay: "0.85s" }}>

@@ -21,7 +21,12 @@
     },
     {
       "text": "AI-powered products",
-      "accent": true
+      "accent": true,
+      "rotate": [
+        "RAG chatbots",
+        "AI voice agents",
+        "SaaS platforms"
+      ]
     },
     {
       "text": "and the full-stack systems behind them."

@@ -23,6 +23,8 @@ export interface Stat {
 export interface HeadlineSegment {
   text: string;
   accent?: boolean;
+  /** Other phrases that take turns with `text` in the hero headline. */
+  rotate?: string[];
 }
 
 export interface Profile {

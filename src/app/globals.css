@@ -189,6 +189,57 @@
   color: transparent;
 }
 
+/* How far the hero accent's gradient has drifted, from 0 to 1. Registered so it can be animated. */
+@property --flow {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+/* The same gradient, drifting slowly back and forth through the word: used for the hero's accent. */
+@utility text-gradient-flow {
+  background-image: linear-gradient(
+    100deg,
+    var(--foreground),
+    var(--accent) 25%,
+    var(--accent-2) 50%,
+    var(--accent) 75%,
+    var(--foreground)
+  );
+  background-size: 200% 100%;
+  background-position: calc(var(--flow) * 100%) 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-flow 6s ease-in-out infinite alternate;
+}
+
+/*
+ * One letter of a text-gradient-flow word that's been split into letters. It paints its own slice of
+ * the word's gradient, placed by the word's width (--word-w) and the letter's offset in it (--x).
+ */
+@utility text-gradient-letter {
+  background-image: linear-gradient(
+    100deg,
+    var(--foreground),
+    var(--accent) 25%,
+    var(--accent-2) 50%,
+    var(--accent) 75%,
+    var(--foreground)
+  );
+  background-size: calc(2 * var(--word-w)) 100%;
+  background-position: calc(-1 * (var(--flow) * var(--word-w) + var(--x))) 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes gradient-flow {
+  to {
+    --flow: 1;
+  }
+}
+
 /* Hairline grid; override --grid-color to tint it. */
 @utility bg-grid {
   background-image:

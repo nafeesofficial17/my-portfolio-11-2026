@@ -114,6 +114,13 @@ export const collections: Collection[] = [
         fields: [
           { key: "text", label: "Words", type: "text", required: true },
           { key: "accent", label: "Accent style", type: "boolean" },
+          {
+            key: "rotate",
+            label: "Rotating phrases",
+            type: "paragraphs",
+            itemLabel: "phrase",
+            help: "Optional. Phrases that take turns with these words, sliding in one after another. Keep them no longer than the words above, so the headline doesn't jump.",
+          },
         ],
       },
       { key: "intro", label: "Hero intro", type: "textarea", required: true },

@@ -63,7 +63,8 @@ function portfolioContext() {
 
   section(
     "Other projects",
-    archiveProjects.map((p) => `- ${p.title}: ${p.category} (${p.stack.join(", ")})`),
+    // Summaries only: the key points would grow the prompt sent with every chat question.
+    archiveProjects.map((p) => `- ${p.title}: ${p.category}. ${p.summary} (${p.stack.join(", ")})`),
   );
 
   section(

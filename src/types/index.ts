@@ -79,6 +79,9 @@ export interface ArchiveProject {
   category: string;
   kind: "web" | "ai" | "automation";
   stack: string[];
+  /** One or two sentences shown when the row is opened. */
+  summary: string;
+  highlights?: string[];
 }
 
 export type ServiceVisual = "chat" | "voice" | "web" | "api" | "data" | "integrations";

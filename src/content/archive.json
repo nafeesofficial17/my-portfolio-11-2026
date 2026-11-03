@@ -7,6 +7,12 @@
       "DRF",
       "MySQL",
       "AWS S3"
+    ],
+    "summary": "A location-based app for discovering nearby merchants and hotels through audio and video reviews from real visitors. I built the backend APIs with Django REST Framework.",
+    "highlights": [
+      "Audio and video reviews, stored on AWS S3",
+      "Real-time chat between users",
+      "Follow, block and unblock to control who you interact with"
     ]
   },
   {
@@ -17,6 +23,12 @@
       "Django",
       "PayPal",
       "AWS S3"
+    ],
+    "summary": "A social platform for sharing content with a global audience, with premium Content+ posts unlocked through event-based subscriptions.",
+    "highlights": [
+      "Content+ posts reviewed by admins before they go live",
+      "Event-based subscriptions and an in-app wallet with transaction history",
+      "PayPal top-ups and real-time chat"
     ]
   },
   {
@@ -28,6 +40,12 @@
       "React",
       "MSSQL",
       "WebSockets"
+    ],
+    "summary": "A point-of-sale system integrated with Linkly, so businesses can create invoices and take cash, credit and debit card payments in one place.",
+    "highlights": [
+      "Card payments through Linkly, alongside cash",
+      "Pay or refund several invoices in one batch",
+      "Asynchronous payment handling with automatic PDF invoices"
     ]
   },
   {
@@ -38,6 +56,12 @@
       "DRF",
       "MySQL",
       "AWS S3"
+    ],
+    "summary": "A platform that helps cancer patients and survivors manage daily health and diet plans, during treatment and into recovery. I built the backend APIs.",
+    "highlights": [
+      "Personal goals and daily routines",
+      "Health and diet plans created or approved by doctors",
+      "Support that continues after treatment ends"
     ]
   },
   {
@@ -48,6 +72,12 @@
       "TensorFlow",
       "scikit-learn",
       "ARIMA"
+    ],
+    "summary": "Sales forecasting models that predict demand from historical sales data, built to improve inventory and business planning.",
+    "highlights": [
+      "EDA and feature engineering on sales trends and seasonality",
+      "Compared Decision Tree, Random Forest, ARIMA/SARIMA and LSTM models",
+      "Tuned hyperparameters and features for better accuracy"
     ]
   },
   {
@@ -59,7 +89,8 @@
       "OpenCV",
       "Django",
       "React"
-    ]
+    ],
+    "summary": "A computer-vision system that detects and counts objects in real time, served through a Django API with a React dashboard."
   },
   {
     "title": "Customer Churn Prediction",
@@ -69,6 +100,12 @@
       "TensorFlow",
       "Keras",
       "Pandas"
+    ],
+    "summary": "A deep learning model that predicts which customers are likely to leave, so retention efforts can target them early.",
+    "highlights": [
+      "EDA and feature engineering to find the behaviour behind churn",
+      "Neural network in TensorFlow and Keras",
+      "Hyperparameter tuning for better accuracy"
     ]
   },
   {
@@ -79,6 +116,12 @@
       "Dialogflow",
       "Flask",
       "Python"
+    ],
+    "summary": "An AI chatbot built with Dialogflow and connected to Telegram to answer users automatically.",
+    "highlights": [
+      "Intents and entities designed for natural conversations",
+      "Keeps context across messages for more relevant replies",
+      "Response flows tuned for fast, accurate answers"
     ]
   },
   {
@@ -89,6 +132,12 @@
       "Python",
       "OpenCV",
       "OCR"
+    ],
+    "summary": "Finds and reads barcodes in scanned PDFs, then splits, renames and uploads the files automatically.",
+    "highlights": [
+      "Splits PDFs at each detected barcode",
+      "OpenCV clean-up and OCR to read barcode values",
+      "Renamed files uploaded to an FTP server"
     ]
   },
   {
@@ -99,6 +148,12 @@
       "Python",
       "Pandas",
       "Selenium"
+    ],
+    "summary": "Extracts key data from PDF documents and enters it into a website automatically, replacing manual data entry.",
+    "highlights": [
+      "Parses structured and unstructured data from PDFs",
+      "Selenium automation uploads the data to the target website",
+      "Error handling with email alerts when something fails"
     ]
   },
   {
@@ -109,6 +164,12 @@
       "Python",
       "Pandas",
       "Paramiko"
+    ],
+    "summary": "A Python pipeline that fetches data from a REST API, transforms it with business rules and delivers it securely over SFTP.",
+    "highlights": [
+      "API fetching with retries and error handling",
+      "Cleaning, filtering and reshaping with pandas",
+      "SFTP upload with Paramiko, email alerts and step-by-step logging"
     ]
   },
   {
@@ -119,6 +180,12 @@
       "Python",
       "Pandas",
       "pyodbc"
+    ],
+    "summary": "A high-performance script that loads very large CSV files into Microsoft SQL Server without running out of memory.",
+    "highlights": [
+      "Reads CSVs in 5,000-row chunks with pandas",
+      "Applies row and column rules, then builds parameterised inserts",
+      "Bulk inserts with pyodbc in a single transaction"
     ]
   }
 ]

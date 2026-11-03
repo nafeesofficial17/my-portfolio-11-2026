@@ -383,7 +383,16 @@ function TagsInput({ id, field, value, onChange }: { id: string; field: Field; v
   );
 }
 
-function ParagraphsInput({ field, value, onChange }: { field: Field; value: string[]; onChange: (value: unknown) => void }) {
+function ParagraphsInput({
+  field,
+  value,
+  onChange,
+}: {
+  field: Field & { type: "paragraphs" };
+  value: string[];
+  onChange: (value: unknown) => void;
+}) {
+  const itemLabel = field.itemLabel ?? "paragraph";
   return (
     <fieldset>
       <Label field={field} as="legend" />
@@ -391,7 +400,8 @@ function ParagraphsInput({ field, value, onChange }: { field: Field; value: stri
         {value.map((paragraph, i) => (
           <div key={i} className="flex gap-2">
             <textarea
-              rows={4}
+              // Paragraphs get room to write; shorter items like key points don't need it.
+              rows={itemLabel === "paragraph" ? 4 : 2}
               aria-label={`${field.label} ${i + 1}`}
               value={paragraph}
               onChange={(event) => onChange(value.map((entry, index) => (index === i ? event.target.value : entry)))}
@@ -400,7 +410,7 @@ function ParagraphsInput({ field, value, onChange }: { field: Field; value: stri
             <button
               type="button"
               onClick={() => onChange(value.filter((_, index) => index !== i))}
-              aria-label={`Delete paragraph ${i + 1}`}
+              aria-label={`Delete ${itemLabel} ${i + 1}`}
               className={cn(iconButton, "mt-1 hover:text-red-300")}
             >
               <Trash2 className="size-4" />
@@ -408,7 +418,7 @@ function ParagraphsInput({ field, value, onChange }: { field: Field; value: stri
           </div>
         ))}
         <button type="button" onClick={() => onChange([...value, ""])} className={smallButton}>
-          <Plus className="size-3.5" /> Add paragraph
+          <Plus className="size-3.5" /> Add {itemLabel}
         </button>
       </div>
       <Help text={field.help} />

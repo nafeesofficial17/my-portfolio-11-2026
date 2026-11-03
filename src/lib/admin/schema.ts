@@ -21,7 +21,7 @@ export type Field =
   | (BaseField & { type: "boolean" })
   | (BaseField & { type: "select"; options: readonly string[] })
   | (BaseField & { type: "tags" })
-  | (BaseField & { type: "paragraphs" })
+  | (BaseField & { type: "paragraphs"; itemLabel?: string })
   | (BaseField & { type: "image" | "file"; upload: UploadKind })
   | (BaseField & { type: "object"; fields: Field[] })
   | (BaseField & { type: "list"; fields: Field[]; itemLabel: string; itemTitle?: (item: Item) => string });
@@ -249,7 +249,7 @@ export const collections: Collection[] = [
   {
     name: "archive",
     label: "More projects",
-    description: "Smaller projects listed under the case studies.",
+    description: "Smaller projects listed under the case studies. Each row opens to show its summary and key points.",
     kind: "list",
     itemLabel: "project",
     itemTitle: (item) => str(item.title),
@@ -258,6 +258,8 @@ export const collections: Collection[] = [
       { key: "category", label: "Category", type: "text", required: true },
       { key: "kind", label: "Kind", type: "select", required: true, options: ["web", "ai", "automation"] },
       { key: "stack", label: "Tech stack", type: "tags", required: true },
+      { key: "summary", label: "Summary", type: "textarea", required: true, help: "One or two sentences: what it is and what you built." },
+      { key: "highlights", label: "Key points", type: "paragraphs", itemLabel: "key point", help: "Two or three short points, shown as a list under the summary." },
     ],
   },
   {
@@ -459,6 +461,16 @@ export function validateCollection(
       if (slug && !slugPattern.test(slug)) errors.push(`Slug "${slug}" can only use lowercase letters, numbers and dashes.`);
       if (seen.has(slug)) errors.push(`Two case studies use the slug "${slug}".`);
       seen.add(slug);
+    }
+  }
+
+  // The site tells these rows apart by title (to open and close them), so titles must be unique.
+  if (name === "archive") {
+    const seen = new Set<string>();
+    for (const item of items) {
+      const title = str(item.title);
+      if (title && seen.has(title)) errors.push(`Two projects are called "${title}".`);
+      seen.add(title);
     }
   }
 

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { useId, useState } from "react";
+import { ChevronDown, Plus } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
+import { Tag } from "@/components/ui/Tag";
 import { cn } from "@/lib/utils";
 import type { ArchiveProject } from "@/types";
 
@@ -18,9 +19,87 @@ type Filter = (typeof filters)[number]["value"];
 /** Rows shown under "All" before the list is expanded. */
 const COLLAPSED_COUNT = 7;
 
+/** One project: a compact row that opens to show its summary, key points and full stack. */
+function ArchiveRow({
+  project,
+  open,
+  onToggle,
+  delay,
+}: {
+  project: ArchiveProject;
+  open: boolean;
+  onToggle: () => void;
+  delay: number;
+}) {
+  const panelId = useId();
+
+  return (
+    <li
+      className="animate-fade-up border-b border-line transition-colors duration-300 hover:border-line-strong"
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      {/* `group` sits on the button, so only the clickable row reacts to hover, not the opened details. */}
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={panelId}
+        onClick={onToggle}
+        className="group flex w-full items-center gap-4 py-5 text-left"
+      >
+        <span className="grid flex-1 gap-1 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8 md:grid-cols-[1.2fr_1fr_1.2fr]">
+          <span className="text-lg font-medium tracking-tight transition-transform duration-500 ease-out-expo group-hover:translate-x-2 sm:text-xl">
+            {project.title}
+          </span>
+          <span className="text-sm text-muted sm:text-right md:text-left">{project.category}</span>
+          <span className="hidden font-mono text-xs text-subtle md:block md:text-right">{project.stack.join(" · ")}</span>
+        </span>
+        <span className="grid size-8 shrink-0 place-items-center rounded-full border border-line text-muted transition-colors duration-300 group-hover:border-line-strong group-hover:text-foreground">
+          <Plus className={cn("size-4 transition-transform duration-300", open && "rotate-45")} aria-hidden />
+        </span>
+      </button>
+
+      {/* Animates open by growing the grid row from 0fr to 1fr. Closed content is inert, so it stays out of reach. */}
+      <div
+        id={panelId}
+        inert={!open}
+        className={cn(
+          "grid transition-[grid-template-rows] duration-500 ease-out-expo",
+          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+        )}
+      >
+        <div className="overflow-hidden">
+          <div className="max-w-2xl pb-6">
+            <p className="leading-relaxed text-pretty text-muted">{project.summary}</p>
+            {project.highlights && project.highlights.length > 0 && (
+              <ul className="mt-4 space-y-2">
+                {project.highlights.map((highlight, i) => (
+                  // Points are free text from the admin panel and may repeat, so they're keyed by position.
+                  <li key={i} className="flex gap-3 text-sm leading-relaxed text-muted">
+                    <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
+                    {highlight}
+                  </li>
+                ))}
+              </ul>
+            )}
+            <ul className="mt-5 flex flex-wrap gap-2" aria-label="Tech stack">
+              {project.stack.map((tech) => (
+                <li key={tech}>
+                  <Tag>{tech}</Tag>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </li>
+  );
+}
+
 export function ProjectArchive({ projects }: { projects: ArchiveProject[] }) {
   const [filter, setFilter] = useState<Filter>("all");
   const [expanded, setExpanded] = useState(false);
+  // Rows opened to show their details, by title.
+  const [open, setOpen] = useState<Set<string>>(new Set());
 
   const matching = filter === "all" ? projects : projects.filter((project) => project.kind === filter);
   const collapsible = filter === "all" && matching.length > COLLAPSED_COUNT;
@@ -60,17 +139,19 @@ export function ProjectArchive({ projects }: { projects: ArchiveProject[] }) {
 
       <ul key={filter}>
         {visible.map((project, i) => (
-          <li
+          <ArchiveRow
             key={project.title}
-            className="group animate-fade-up grid gap-1 border-b border-line py-5 transition-colors duration-300 hover:border-line-strong sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8 md:grid-cols-[1.2fr_1fr_1.2fr]"
-            style={{ animationDelay: `${Math.min(i, COLLAPSED_COUNT) * 40}ms` }}
-          >
-            <span className="text-lg font-medium tracking-tight transition-transform duration-500 ease-out-expo group-hover:translate-x-2 sm:text-xl">
-              {project.title}
-            </span>
-            <span className="text-sm text-muted sm:text-right md:text-left">{project.category}</span>
-            <span className="hidden font-mono text-xs text-subtle md:block md:text-right">{project.stack.join(" · ")}</span>
-          </li>
+            project={project}
+            open={open.has(project.title)}
+            onToggle={() =>
+              setOpen((current) => {
+                const next = new Set(current);
+                if (!next.delete(project.title)) next.add(project.title);
+                return next;
+              })
+            }
+            delay={Math.min(i, COLLAPSED_COUNT) * 40}
+          />
         ))}
       </ul>
 

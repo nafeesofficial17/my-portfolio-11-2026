@@ -22,7 +22,8 @@ export function About() {
         />
 
         <div className="mt-16 grid gap-14 lg:grid-cols-[5fr_7fr] lg:gap-20">
-          <div className="lg:sticky lg:top-28 lg:self-start">
+          {/* Full width on phones; on tablets a full-width square would fill the whole screen. */}
+          <div className="sm:max-w-sm lg:sticky lg:top-28 lg:max-w-none lg:self-start">
             <FadeIn whenInView y={40}>
               <Portrait src={about.portrait} alt={`Portrait of ${profile.name}`} location={profile.location} />
             </FadeIn>

@@ -10,16 +10,19 @@ import type { Service } from "@/types";
 import { ServiceVisualFor } from "./ServiceVisuals";
 
 // Bento placement, in the same order as `services`. Wide tiles lay text and visual side by side.
+// Services are editable in the admin panel, so any beyond these six get a regular tile.
 const layout = [
   { span: "md:col-span-2 lg:col-span-4", wide: true, visual: "h-72 lg:h-auto lg:min-h-80" },
   { span: "lg:col-span-2", wide: false, visual: "h-64" },
   { span: "lg:col-span-2", wide: false, visual: "h-64" },
   { span: "lg:col-span-2", wide: false, visual: "h-64" },
-  { span: "md:col-span-2 lg:col-span-2", wide: false, visual: "h-64" },
+  { span: "lg:col-span-2", wide: false, visual: "h-64" },
   { span: "md:col-span-2 lg:col-span-6", wide: true, visual: "h-40 lg:h-auto" },
 ];
+const regularTile = { span: "lg:col-span-2", wide: false, visual: "h-64" };
 
-function ServiceCard({ service, wide, visualClass }: { service: Service; wide: boolean; visualClass: string }) {
+function ServiceCard({ service, tile }: { service: Service; tile: typeof regularTile }) {
+  const { wide, visual: visualClass } = tile;
   return (
     <SpotlightCard
       className={cn("flex h-full flex-col", wide && "lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]")}
@@ -59,8 +62,8 @@ export function Services() {
 
         <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-6">
           {services.map((service, i) => (
-            <FadeIn key={service.title} whenInView delay={(i % 3) * 0.08} className={layout[i].span}>
-              <ServiceCard service={service} wide={layout[i].wide} visualClass={layout[i].visual} />
+            <FadeIn key={service.title} whenInView delay={(i % 3) * 0.08} className={(layout[i] ?? regularTile).span}>
+              <ServiceCard service={service} tile={layout[i] ?? regularTile} />
             </FadeIn>
           ))}
         </div>

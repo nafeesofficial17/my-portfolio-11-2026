@@ -79,7 +79,7 @@ export function ProjectArchive({ projects }: { projects: ArchiveProject[] }) {
           type="button"
           aria-expanded={expanded}
           onClick={() => setExpanded((value) => !value)}
-          className="group mt-6 inline-flex items-center gap-2 text-sm text-muted transition-colors duration-300 hover:text-foreground"
+          className="group mt-4 inline-flex items-center gap-2 py-2 text-sm text-muted transition-colors duration-300 hover:text-foreground"
         >
           {expanded ? "Show fewer" : `Show all ${matching.length} projects`}
           <ChevronDown

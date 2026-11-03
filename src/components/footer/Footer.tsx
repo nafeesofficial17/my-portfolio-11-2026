@@ -36,10 +36,10 @@ export function Footer() {
 
         <nav aria-label="Footer">
           <p className="font-mono text-[11px] tracking-[0.2em] text-subtle uppercase">Sitemap</p>
-          <ul className="mt-5 space-y-3">
+          <ul className="mt-4 space-y-1">
             {navItems.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="text-muted transition-colors hover:text-foreground">
+                <Link href={item.href} className="inline-block py-1 text-muted transition-colors hover:text-foreground">
                   {item.label}
                 </Link>
               </li>
@@ -49,14 +49,14 @@ export function Footer() {
 
         <div>
           <p className="font-mono text-[11px] tracking-[0.2em] text-subtle uppercase">Connect</p>
-          <ul className="mt-5 space-y-3">
+          <ul className="mt-4 space-y-1">
             {connect.map((social) => (
               <li key={social.platform}>
                 <a
                   href={social.href}
                   target={social.href.startsWith("http") ? "_blank" : undefined}
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 text-muted transition-colors hover:text-foreground"
+                  className="inline-flex items-center gap-2.5 py-1 text-muted transition-colors hover:text-foreground"
                 >
                   <SocialIcon platform={social.platform} className="size-4" />
                   {social.label}

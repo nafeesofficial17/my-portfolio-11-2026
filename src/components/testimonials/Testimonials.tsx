@@ -45,6 +45,8 @@ function TestimonialCard({ testimonial, featured }: { testimonial: Testimonial; 
 
 export function Testimonials() {
   const [featured, ...rest] = testimonials;
+  // Testimonials are editable in the admin panel; with none left, the section is simply left out.
+  if (!featured) return null;
 
   return (
     <section id="testimonials" className="relative py-24 sm:py-32">

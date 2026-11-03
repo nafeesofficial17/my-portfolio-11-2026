@@ -63,7 +63,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           <div className="animate-fade-up" style={{ animationDelay: "0s" }}>
             <Link
               href="/#work"
-              className="group inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-foreground"
+              className="group -my-2 inline-flex items-center gap-2 py-2 text-sm text-muted transition-colors hover:text-foreground"
             >
               <ArrowLeft className="size-4 transition-transform duration-300 group-hover:-translate-x-1" />
               All work
@@ -142,7 +142,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
                 <p className="mt-3 leading-relaxed text-pretty text-muted">{project.challenge}</p>
               </FadeIn>
               <FadeIn whenInView delay={0.1}>
-                <h2 className="text-sm font-medium text-subtle">What we built</h2>
+                <h2 className="text-sm font-medium text-subtle">The solution</h2>
                 <p className="mt-3 leading-relaxed text-pretty text-muted">{project.solution}</p>
               </FadeIn>
             </div>

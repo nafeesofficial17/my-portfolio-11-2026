@@ -10,6 +10,8 @@ import { StatusBadge } from "@/components/ui/StatusBadge";
 import { profile } from "@/data/profile";
 import { HeroBackground } from "./HeroBackground";
 
+const socials = [...profile.socials, { platform: "whatsapp" as const, label: "WhatsApp", href: profile.whatsapp }];
+
 export function Hero() {
   return (
     <section id="home" className="relative isolate flex min-h-svh items-center overflow-hidden pt-24 pb-24 sm:pt-32">
@@ -70,7 +72,7 @@ export function Hero() {
           </dl>
 
           <ul className="flex gap-2">
-            {profile.socials.map((social) => (
+            {socials.map((social) => (
               <li key={social.platform}>
                 <a
                   href={social.href}

@@ -1,6 +1,6 @@
 /**
  * What the admin panel can edit. Each collection is one JSON file in src/content/, and its fields
- * drive both the admin forms and the validation that runs before anything is written to disk.
+ * drive both the admin forms and the validation that runs before anything is saved.
  * Shared by the browser and the server, so nothing here may touch Node APIs.
  */
 

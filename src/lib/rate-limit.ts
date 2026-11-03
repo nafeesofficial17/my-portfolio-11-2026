@@ -4,6 +4,11 @@
  */
 const hits = new Map<string, number[]>();
 
+/** The visitor's IP as reported by the host's proxy (the first x-forwarded-for entry). */
+export function clientIp(request: Request) {
+  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+}
+
 export function isRateLimited(key: string, limit = 5, windowMs = 10 * 60 * 1000) {
   const now = Date.now();
   // Forget visitors whose hits have all expired, so the map can't grow without bound.

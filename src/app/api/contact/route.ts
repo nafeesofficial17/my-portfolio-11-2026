@@ -1,6 +1,6 @@
 import { profile } from "@/data/profile";
 import { parseContact, validateContact, type ContactInput } from "@/lib/contact";
-import { isRateLimited } from "@/lib/rate-limit";
+import { clientIp, isRateLimited } from "@/lib/rate-limit";
 
 function emailBody(input: ContactInput) {
   return [
@@ -15,8 +15,7 @@ function emailBody(input: ContactInput) {
 }
 
 export async function POST(request: Request) {
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-  if (isRateLimited(ip)) {
+  if (isRateLimited(clientIp(request))) {
     return Response.json({ error: "Too many messages in a short time. Please try again later." }, { status: 429 });
   }
 

@@ -1,35 +1,64 @@
-import Anthropic from "@anthropic-ai/sdk";
 import { profile } from "@/data/profile";
 import { assistantSystemPrompt } from "@/lib/assistant";
 import { CHAT_LIMITS } from "@/lib/assistant-limits";
-import { isRateLimited } from "@/lib/rate-limit";
+import { clientIp, isRateLimited } from "@/lib/rate-limit";
 
 /**
- * "Ask my AI" endpoint. Streams newline-delimited JSON events to the widget:
+ * "Ask my AI" endpoint. Talks to any OpenAI-compatible chat API (Groq, Cerebras, OpenRouter…) and streams
+ * newline-delimited JSON events to the widget:
  *   {"type":"text","text":"..."}   a chunk of the answer
- *   {"type":"reset"}               discard what was streamed so far (declined mid-answer)
+ *   {"type":"reset"}               discard what was streamed so far (the next provider starts over)
  *   {"type":"error","message":"..."}
  *   {"type":"done"}
  */
 
-const MODEL = process.env.CHAT_MODEL || "claude-opus-5-5";
 // 12 messages of 1,500 characters each fit well under this; anything bigger isn't from the widget.
 const MAX_BODY_BYTES = 64_000;
 
-let client: Anthropic | undefined;
-function getClient() {
-  // Created lazily so the build doesn't need credentials. Reads ANTHROPIC_API_KEY.
-  client ??= new Anthropic();
-  return client;
+interface Provider {
+  baseUrl: string;
+  apiKey: string;
+  model: string;
+}
+
+/**
+ * The main provider, then an optional fallback that takes over when the first is rate-limited or down.
+ * Free tiers have small per-minute limits, so a second free provider keeps the chat answering under load.
+ */
+function providers(): Provider[] {
+  const candidates = [
+    {
+      baseUrl: process.env.CHAT_BASE_URL || "https://api.groq.com/openai/v1",
+      apiKey: process.env.CHAT_API_KEY,
+      model: process.env.CHAT_MODEL || "openai/gpt-oss-120b",
+    },
+    {
+      baseUrl: process.env.CHAT_FALLBACK_BASE_URL,
+      apiKey: process.env.CHAT_FALLBACK_API_KEY,
+      model: process.env.CHAT_FALLBACK_MODEL,
+    },
+  ];
+  return candidates.filter((p): p is Provider => Boolean(p.baseUrl && p.apiKey && p.model));
+}
+
+type ChatMessage = { role: "user" | "assistant"; content: string };
+
+class ProviderError extends Error {
+  constructor(
+    message: string,
+    readonly status?: number,
+  ) {
+    super(message);
+  }
 }
 
 const unavailable = `The assistant is unavailable right now. Please use the contact form or email ${profile.email}.`;
 
-function parseMessages(body: unknown): Anthropic.Beta.BetaMessageParam[] | null {
+function parseMessages(body: unknown): ChatMessage[] | null {
   const raw = (body as { messages?: unknown } | null)?.messages;
   if (!Array.isArray(raw) || raw.length === 0 || raw.length > CHAT_LIMITS.maxMessages) return null;
 
-  const messages: Anthropic.Beta.BetaMessageParam[] = [];
+  const messages: ChatMessage[] = [];
   for (const [i, item] of raw.entries()) {
     const { role, content } = (item ?? {}) as { role?: unknown; content?: unknown };
     // Turns must alternate user/assistant, starting and ending with the visitor.
@@ -42,9 +71,58 @@ function parseMessages(body: unknown): Anthropic.Beta.BetaMessageParam[] | null 
   return messages.at(-1)?.role === "user" ? messages : null;
 }
 
+/** Streams the answer's text from one provider's chat completions endpoint (server-sent events). */
+async function* streamAnswer(provider: Provider, messages: ChatMessage[], signal: AbortSignal) {
+  // Give up on a provider that doesn't start answering within 20 seconds. Once it does, the answer
+  // may take as long as it needs, so the timer stops when the response arrives.
+  const connect = new AbortController();
+  const timer = setTimeout(() => connect.abort(new ProviderError("timed out waiting for a response")), 20_000);
+  const response = await fetch(`${provider.baseUrl.replace(/\/$/, "")}/chat/completions`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${provider.apiKey}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: provider.model,
+      // The system prompt is identical on every request, so providers with prompt caching reuse it.
+      messages: [{ role: "system", content: assistantSystemPrompt }, ...messages],
+      stream: true,
+      // Answers are short, but reasoning models spend part of this budget thinking first.
+      max_tokens: 2048,
+      temperature: 0.4,
+      // gpt-oss thinks before answering; chat Q&A doesn't need much of it, and less is faster.
+      ...(provider.model.includes("gpt-oss") ? { reasoning_effort: "low" } : {}),
+    }),
+    signal: AbortSignal.any([signal, connect.signal]),
+  }).finally(() => clearTimeout(timer));
+  if (!response.ok || !response.body) {
+    throw new ProviderError(`${response.status} ${(await response.text().catch(() => "")).slice(0, 300)}`, response.status);
+  }
+
+  const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
+  let buffer = "";
+  for (;;) {
+    const { value, done } = await reader.read();
+    if (done) return;
+    buffer += value;
+    const lines = buffer.split("\n");
+    buffer = lines.pop() ?? "";
+    for (const line of lines) {
+      if (!line.startsWith("data:")) continue;
+      const data = line.slice(5).trim();
+      if (data === "[DONE]") return;
+      const event = JSON.parse(data) as {
+        choices?: { delta?: { content?: string | null } }[];
+        error?: { message?: string };
+      };
+      if (event.error) throw new ProviderError(event.error.message ?? "stream error");
+      // Only the answer itself; reasoning models send their thinking in a separate field.
+      const text = event.choices?.[0]?.delta?.content;
+      if (text) yield text;
+    }
+  }
+}
+
 export async function POST(request: Request) {
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-  if (isRateLimited(`chat:${ip}`, 20, 10 * 60 * 1000)) {
+  if (isRateLimited(`chat:${clientIp(request)}`, 20, 10 * 60 * 1000)) {
     return Response.json(
       { error: "You've asked a lot of questions in a short time. Please try again in a few minutes." },
       { status: 429 },
@@ -63,6 +141,12 @@ export async function POST(request: Request) {
   const messages = parseMessages(body);
   if (!messages) return Response.json({ error: "Invalid conversation." }, { status: 400 });
 
+  const list = providers();
+  if (list.length === 0) {
+    console.error("[chat] CHAT_API_KEY is not set.");
+    return Response.json({ error: unavailable }, { status: 503 });
+  }
+
   const encoder = new TextEncoder();
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
@@ -73,49 +157,34 @@ export async function POST(request: Request) {
           // The visitor disconnected mid-answer.
         }
       };
+
       try {
-        const answer = getClient().beta.messages.stream(
-          {
-            model: MODEL,
-            // Answers are short; this mainly caps the cost of any single request.
-            max_tokens: 4096,
-            // Chat Q&A doesn't need deep reasoning; low effort keeps replies fast and cheap.
-            output_config: { effort: "low" },
-            system: [{ type: "text", text: assistantSystemPrompt, cache_control: { type: "ephemeral" } }],
-            messages,
-            // If a safety classifier declines, the API retries on Anthropic's recommended fallback model.
-            betas: ["server-side-fallback-2026-07-01"],
-            fallbacks: "default",
-          },
-          { signal: request.signal },
-        );
-
-        for await (const event of answer) {
-          // A fallback block means the model declined mid-answer and a fallback model starts over after it.
-          if (event.type === "content_block_start" && event.content_block.type === "fallback") {
-            send({ type: "reset" });
-          } else if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
-            send({ type: "text", text: event.delta.text });
+        for (const [i, provider] of list.entries()) {
+          let started = false;
+          try {
+            for await (const text of streamAnswer(provider, messages, request.signal)) {
+              started = true;
+              send({ type: "text", text });
+            }
+            // A reasoning model can spend its whole token budget thinking and answer nothing.
+            if (!started) throw new ProviderError("empty answer");
+            send({ type: "done" });
+            return;
+          } catch (error) {
+            if (request.signal.aborted) return; // The visitor closed the chat; nothing to report.
+            console.error(`[chat] ${provider.model} failed:`, error instanceof Error ? error.message : error);
+            if (i < list.length - 1) {
+              // Hand over to the next provider; it answers from scratch.
+              if (started) send({ type: "reset" });
+              continue;
+            }
+            const busy = error instanceof ProviderError && error.status === 429;
+            if (started) send({ type: "reset" });
+            send({
+              type: "error",
+              message: busy ? "The assistant is busy right now. Please try again in a minute." : unavailable,
+            });
           }
-        }
-
-        const final = await answer.finalMessage();
-        if (final.stop_reason === "refusal") {
-          // Even the fallback declined. Drop any partial answer and point to a human instead.
-          send({ type: "reset" });
-          send({
-            type: "error",
-            message: `I can't help with that one. For anything about working with ${profile.name}, use the contact form or email ${profile.email}.`,
-          });
-        }
-        send({ type: "done" });
-      } catch (error) {
-        if (request.signal.aborted) return; // The visitor closed the chat; nothing to report.
-        if (error instanceof Anthropic.RateLimitError) {
-          send({ type: "error", message: "The assistant is busy right now. Please try again in a moment." });
-        } else {
-          console.error("[chat]", error instanceof Anthropic.APIError ? `${error.status} ${error.message}` : error);
-          send({ type: "error", message: unavailable });
         }
       } finally {
         try {

@@ -1,6 +1,6 @@
 /** Contact form schema, shared by the form (instant feedback) and the API route (the real check). */
 
-export const projectTypes = ["AI / chatbot", "Web app", "API / backend", "Data & ML", "Other"] as const;
+export const projectTypes = ["AI / chatbot", "Full stack", "Web app", "API / backend", "Data & ML", "Other"] as const;
 export const budgets = ["Under $2k", "$2k – $5k", "$5k – $15k", "$15k+", "Not sure yet"] as const;
 
 export interface ContactInput {

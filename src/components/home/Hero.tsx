@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, BadgeCheck } from "lucide-react";
+import { ArrowUpRight, BadgeCheck, Download } from "lucide-react";
 import { CountUp } from "@/components/animations/CountUp";
 import { Magnetic } from "@/components/animations/Magnetic";
 import { TextReveal } from "@/components/animations/TextReveal";
@@ -54,6 +54,19 @@ export function Hero() {
           <ButtonLink href="/#work" variant="secondary">
             View my work
           </ButtonLink>
+          {/* A lighter text link, so it doesn't compete with the two main actions. */}
+          {profile.resumeUrl && (
+            <a
+              href={profile.resumeUrl}
+              download
+              className="group inline-flex h-12 items-center gap-2 pr-2 text-[15px] font-medium tracking-tight text-muted transition-colors duration-300 hover:text-foreground"
+            >
+              <span className="grid size-8 place-items-center rounded-full border border-line transition-colors duration-300 group-hover:border-line-strong">
+                <Download className="size-3.5 transition-transform duration-300 group-hover:translate-y-0.5" aria-hidden />
+              </span>
+              Download CV
+            </a>
+          )}
         </div>
 
         <div

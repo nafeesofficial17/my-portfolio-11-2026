@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useLenis } from "lenis/react";
-import { Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { SocialIcon } from "@/components/ui/SocialIcon";
 import { navItems } from "@/data/navigation";
@@ -15,6 +15,8 @@ import { cn } from "@/lib/utils";
 
 const sectionIds = navItems.map((item) => item.href.slice(2));
 const MotionLink = motion.create(Link);
+// The hero shows WhatsApp next to the other profiles, so the menu does too.
+const socials = [...profile.socials, { platform: "whatsapp" as const, label: "WhatsApp", href: profile.whatsapp }];
 
 export function Navbar() {
   const [hidden, setHidden] = useState(false);
@@ -136,24 +138,29 @@ export function Navbar() {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl md:hidden"
           >
-            <nav aria-label="Mobile" className="flex h-full flex-col justify-between px-6 pt-28 pb-10">
-              <ul className="space-y-1">
-                {navItems.map((item, i) => (
-                  <li key={item.href} className="overflow-hidden">
-                    <MotionLink
-                      href={item.href}
-                      onClick={() => setMenuOpen(false)}
-                      initial={{ y: "100%" }}
-                      animate={{ y: "0%" }}
-                      exit={{ y: "100%", transition: { duration: 0.3, ease: easeOutExpo } }}
-                      transition={{ duration: 0.7, ease: easeOutExpo, delay: 0.08 + i * 0.05 }}
-                      className="flex items-baseline gap-4 py-1 text-5xl font-semibold tracking-tight"
-                    >
-                      <span className="font-mono text-xs text-subtle">0{i + 1}</span>
-                      {item.label}
-                    </MotionLink>
-                  </li>
-                ))}
+            <nav aria-label="Mobile" data-lenis-prevent className="flex h-full flex-col justify-between gap-8 overflow-y-auto px-6 pt-28 pb-10 [@media(max-height:700px)]:pt-24 [@media(max-height:700px)]:pb-6">
+              <ul className="border-t border-line">
+                {navItems.map((item, i) => {
+                  const isActive = active === item.href.slice(2);
+                  return (
+                    <li key={item.href} className="overflow-hidden border-b border-line">
+                      <MotionLink
+                        href={item.href}
+                        onClick={() => setMenuOpen(false)}
+                        aria-current={isActive ? "location" : undefined}
+                        initial={{ y: "100%" }}
+                        animate={{ y: "0%" }}
+                        exit={{ y: "100%", transition: { duration: 0.3, ease: easeOutExpo } }}
+                        transition={{ duration: 0.7, ease: easeOutExpo, delay: 0.08 + i * 0.05 }}
+                        className="flex items-center gap-4 py-4 text-[clamp(1.5rem,7vw,2rem)] font-medium tracking-tight [@media(max-height:700px)]:py-2.5"
+                      >
+                        <span className={cn("w-5 font-mono text-xs", isActive ? "text-accent" : "text-subtle")}>0{i + 1}</span>
+                        <span className={cn("flex-1", !isActive && "text-foreground/85")}>{item.label}</span>
+                        <ArrowUpRight className="size-5 text-subtle" aria-hidden />
+                      </MotionLink>
+                    </li>
+                  );
+                })}
               </ul>
 
               <motion.div
@@ -163,11 +170,15 @@ export function Navbar() {
                 transition={{ duration: 0.6, ease: easeOutExpo, delay: 0.35 }}
                 className="space-y-5"
               >
-                <a href={`mailto:${profile.email}`} className="block text-lg text-muted">
+                <ButtonLink href="/#contact" onClick={() => setMenuOpen(false)} className="w-full">
+                  Start a project
+                  <ArrowUpRight className="size-4" aria-hidden />
+                </ButtonLink>
+                <a href={`mailto:${profile.email}`} className="block text-muted">
                   {profile.email}
                 </a>
                 <ul className="flex gap-3">
-                  {profile.socials.map((social) => (
+                  {socials.map((social) => (
                     <li key={social.platform}>
                       <a
                         href={social.href}
